@@ -221,3 +221,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Proyecto BioProductos DK
+node_modules/
+.vscode/
