@@ -9,13 +9,17 @@ django-crm-events==1.0.20
 django_shopify_app==2.18.1
 djangorestframework==3.18.3
 idna==3.20
+psycopg==3.3.9
+psycopg-binary==3.3.9
 pyactiveresource==2.2.2
 pycparser==3.12
 PyJWT==2.15.1
+python-dotenv==1.2.4
 PyYAML==6.0.3
 requests==2.34.2
 ShopifyAPI==12.7.0
 six==1.17.0
 sqlparse==0.6.1
+typing_extensions==4.16.0
 tzdata==2026.6
 urllib3==2.8.0
