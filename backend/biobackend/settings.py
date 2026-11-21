@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'contacto', #aplicacion propia
+    'rest_framework', #api tercera #1
+    'corsheaders' # api tercera #2
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #agregado cors justo por encima de commonmiddleware.
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
@@ -132,3 +136,15 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+#CORS que frontends pueden llamar a esta API
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000').split(',')
+#permite solo el frontend de Byron, que corre en el puerto 8000. Cualquier otro sitio queda bloqueado.
+
+#Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
+    },
+}
+#es el límite anti-spam del que hablamos, para el endpoint público.
