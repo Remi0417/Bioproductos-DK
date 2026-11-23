@@ -225,3 +225,7 @@ __marimo__/
 # Proyecto BioProductos DK
 node_modules/
 .vscode/
+
+# La plantilla de Python ignora "lib/", pero en el frontend (Next.js)
+# src/lib tiene código propio (API, config, utilidades). Se vuelve a incluir.
+!frontend/**/src/lib/
