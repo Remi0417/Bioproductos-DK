@@ -1,0 +1,158 @@
+[
+  {
+    "original": "foto principal.JPG",
+    "sha256": "85e96b25905b64ac32734699c411d98dc4cc9f18d9d3078316e8cffbabe3a983",
+    "bytes": 1143959,
+    "format": "JPEG",
+    "variants": [
+      {
+        "file": "coleccion-640.webp",
+        "width": 640,
+        "height": 296,
+        "bytes": 43238
+      },
+      {
+        "file": "coleccion-1280.webp",
+        "width": 1280,
+        "height": 591,
+        "bytes": 152578
+      },
+      {
+        "file": "coleccion-2240.webp",
+        "width": 2240,
+        "height": 1035,
+        "bytes": 385076
+      }
+    ]
+  },
+  {
+    "original": "detergente modelo.JPG",
+    "sha256": "6d3242f06bbf9de646c74a1e85241a5bfd52f4fff1a8d925555e4f040d7d498f",
+    "bytes": 1595246,
+    "format": "HEIC",
+    "variants": [
+      {
+        "file": "detergente-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 21024
+      },
+      {
+        "file": "detergente-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 60988
+      },
+      {
+        "file": "detergente-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 142556
+      }
+    ]
+  },
+  {
+    "original": "jabon modelo.JPG",
+    "sha256": "3f0ee74bfa0b634f923eab8683b9f73c1cce9f797de72236ba23abe466798d47",
+    "bytes": 1667254,
+    "format": "HEIC",
+    "variants": [
+      {
+        "file": "champu-480.webp",
+        "width": 480,
+        "height": 480,
+        "bytes": 21970
+      },
+      {
+        "file": "champu-960.webp",
+        "width": 960,
+        "height": 960,
+        "bytes": 71944
+      },
+      {
+        "file": "champu-1600.webp",
+        "width": 1600,
+        "height": 1600,
+        "bytes": 178714
+      }
+    ]
+  },
+  {
+    "original": "sales de bañoo.JPG",
+    "sha256": "fc2f2fe63c5a24ac43586c08f0f9b7bbd417a6c67970c4372ef03c7ddcfe3213",
+    "bytes": 2404125,
+    "format": "HEIC",
+    "variants": [
+      {
+        "file": "sales-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 24680
+      },
+      {
+        "file": "sales-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 80820
+      },
+      {
+        "file": "sales-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 212486
+      }
+    ]
+  },
+  {
+    "original": "detergente.JPG",
+    "sha256": "ddd3a0164892400fb1f703735aea0c55d996584f53866cad4dc6048ea7e93f61",
+    "bytes": 3124788,
+    "format": "HEIC",
+    "variants": [
+      {
+        "file": "botellas-480.webp",
+        "width": 480,
+        "height": 640,
+        "bytes": 42828
+      },
+      {
+        "file": "botellas-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 148696
+      },
+      {
+        "file": "botellas-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 494424
+      }
+    ]
+  },
+  {
+    "original": "Dueñas dk.JPG",
+    "sha256": "c98c0015c06ee8f88782d0f997a92e3c57f98519852d8886bd8117a5340fc133",
+    "bytes": 1084146,
+    "format": "JPEG",
+    "variants": [
+      {
+        "file": "fundadoras-480.webp",
+        "width": 480,
+        "height": 1039,
+        "bytes": 94490
+      },
+      {
+        "file": "fundadoras-960.webp",
+        "width": 960,
+        "height": 2078,
+        "bytes": 335532
+      },
+      {
+        "file": "fundadoras-1440.webp",
+        "width": 1440,
+        "height": 3117,
+        "bytes": 613452
+      }
+    ]
+  }
+]

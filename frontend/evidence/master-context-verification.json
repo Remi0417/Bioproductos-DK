@@ -1,0 +1,40 @@
+{
+  "scope": "Context adoption audit: static checks and compilation only; not browser, database or commerce certification.",
+  "results": [
+    {
+      "command": "npm run format:check",
+      "code": 0,
+      "startedAt": "2026-10-18T05:53:19.788Z",
+      "finishedAt": "2026-10-18T05:53:25.532Z",
+      "log": "evidence/master-context-format-check.log"
+    },
+    {
+      "command": "npm run lint",
+      "code": 0,
+      "startedAt": "2026-10-18T05:53:25.535Z",
+      "finishedAt": "2026-10-18T05:53:40.320Z",
+      "log": "evidence/master-context-lint.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "code": 0,
+      "startedAt": "2026-10-18T05:53:40.320Z",
+      "finishedAt": "2026-10-18T05:54:02.573Z",
+      "log": "evidence/master-context-typecheck.log"
+    },
+    {
+      "command": "npm run test",
+      "code": 0,
+      "startedAt": "2026-10-18T05:54:02.575Z",
+      "finishedAt": "2026-10-18T05:54:07.849Z",
+      "log": "evidence/master-context-test.log"
+    },
+    {
+      "command": "npm run build",
+      "code": 0,
+      "startedAt": "2026-10-18T05:54:07.849Z",
+      "finishedAt": "2026-10-18T05:55:38.706Z",
+      "log": "evidence/master-context-build.log"
+    }
+  ]
+}

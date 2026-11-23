@@ -1,0 +1,13 @@
+{
+  "decorativeOutlineIcons": 10,
+  "messagesPerGroup": 5,
+  "starsRemoved": true,
+  "themes": [
+    "science",
+    "leaf",
+    "sprout",
+    "recycling",
+    "circularity"
+  ],
+  "browserVisualReview": "pending"
+}

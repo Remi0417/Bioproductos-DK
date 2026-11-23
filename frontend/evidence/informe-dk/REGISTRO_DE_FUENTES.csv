@@ -1,0 +1,11 @@
+Fuente,Uso en guía técnica,Límite de interpretación
+"package.json (raíz, apps/storefront, apps/backend)","Stack, versiones, scripts y workspaces",Las dependencias no prueban que todos los servicios estén operativos
+apps/storefront/src/app/(editorial)/**,Inventario de rutas públicas editoriales,Rutas detectadas no implican E2E validado en esta sesión
+apps/storefront/src/modules/dk/editorial/**,"Componentes, composición visual e interacción",El código describe estado implementado en repositorio; confirmar browser runtime
+apps/storefront/src/content/**,"Navegación, copy y catálogo editorial",Contenido comercial/precios/disponibilidad no es fuente de verdad de venta
+apps/storefront/src/lib/util/demo-cart.ts,Reglas verificables del carrito demo local,No corresponde a una orden/comercio real
+apps/backend/src/api/** y src/lib/demo-safety.ts,Estado de endpoints revisados y guardas locales,No demuestra la ejecución de base de datos/servicios
+tests/**,Criterios automatizados y suites disponibles,Suite presente no equivale a suite E2E ejecutada
+"docs/MASTER_CONTEXT.md, PRD.md, ROADMAP.md, ARQUITECTURA.md, DISENO_UX_UI.md","Restricciones, intención, decisiones y estado de proyecto",Distinguir propuesta/documentación de operación comprobada
+Figma N0Ro5ZM38uwZpUIti7GUAC · Page 1 · frame 4:2,Único mockup visual verificado: Home Desktop 1440×6337,No se encontraron páginas interiores ni breakpoints responsive
+Transcripción docs/ENTREVISTA_TERRENO_BIO_DK.md,Contexto limitado para copy y restricciones de colaboración,No es especificación técnica ni validación de usuarios

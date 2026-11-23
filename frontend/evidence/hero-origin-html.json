@@ -1,0 +1,12 @@
+{
+  "heading": "Todo nace de la ciencia.",
+  "categoryCount": 3,
+  "heroPhoto": "existing home-hero",
+  "homePhotoCount": 6,
+  "independentCtas": [
+    "/productos",
+    "/bio-investigacion"
+  ],
+  "actualSmokeHeadingParserPassed": true,
+  "browserResponsiveAndAxe": "pending: local server EPERM"
+}

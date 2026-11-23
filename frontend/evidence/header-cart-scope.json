@@ -1,0 +1,21 @@
+{
+  "unrelatedCssRulesUnchanged": 463,
+  "ctaGradientSolidStopContrast": [
+    {
+      "foreground": "#18372a",
+      "background": "#e3f0b9",
+      "contrast": 10.768064752626257
+    },
+    {
+      "foreground": "#18372a",
+      "background": "#a7c957",
+      "contrast": 6.8790125529958415
+    },
+    {
+      "foreground": "#18372a",
+      "background": "#d6e9a3",
+      "contrast": 9.911162341533368
+    }
+  ],
+  "limit": "Solid colors only, not a full browser accessibility audit"
+}

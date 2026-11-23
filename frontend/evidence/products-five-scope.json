@@ -1,0 +1,10 @@
+[
+  {
+    "file": "apps/storefront/src/content/home.ts",
+    "outsideProductsUnchanged": true
+  },
+  {
+    "file": "apps/storefront/src/modules/dk/editorial/home.tsx",
+    "outsideProductsUnchanged": true
+  }
+]

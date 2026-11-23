@@ -1,0 +1,7 @@
+{
+  "logoInBuiltHeader": true,
+  "oldHeaderWordmarkRemoved": true,
+  "homeSectionMarkers": 11,
+  "homePhotos": 6,
+  "browserCheck": "Blocked before test execution: listen EPERM 127.0.0.1:8000"
+}

@@ -1,0 +1,59 @@
+{
+  "scope": "Static solid-color pairs only; not a browser axe audit or verification of photograph overlays.",
+  "pairs": [
+    {
+      "name": "body",
+      "foreground": "#183429",
+      "background": "#f7f7ef",
+      "ratio": 12.487109794212241
+    },
+    {
+      "name": "muted",
+      "foreground": "#506455",
+      "background": "#f7f7ef",
+      "ratio": 5.919488662495851
+    },
+    {
+      "name": "product body",
+      "foreground": "#506455",
+      "background": "#eaf0e4",
+      "ratio": 5.487722762774168
+    },
+    {
+      "name": "pillar body",
+      "foreground": "#4d634d",
+      "background": "#dce8bc",
+      "ratio": 5.085631427380898
+    },
+    {
+      "name": "dark body",
+      "foreground": "#c1d3ba",
+      "background": "#123c30",
+      "ratio": 7.752899566877388
+    },
+    {
+      "name": "primary action",
+      "foreground": "#173f32",
+      "background": "#d8ee9a",
+      "ratio": 9.264728576573498
+    },
+    {
+      "name": "science question",
+      "foreground": "#48643c",
+      "background": "#e7ecde",
+      "ratio": 5.515999182631027
+    },
+    {
+      "name": "impact body",
+      "foreground": "#506455",
+      "background": "#dfe9c8",
+      "ratio": 5.045974739767769
+    },
+    {
+      "name": "footer",
+      "foreground": "#bbcfad",
+      "background": "#113729",
+      "ratio": 7.889464748272133
+    }
+  ]
+}

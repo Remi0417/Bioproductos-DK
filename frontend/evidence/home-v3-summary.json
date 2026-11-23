@@ -1,0 +1,55 @@
+{
+  "recordedAt": "2026-10-18T05:01:17.007Z",
+  "direction": "Laboratorio vivo",
+  "scope": "Home and necessary shared editorial components; visual/browser acceptance pending.",
+  "checks": [
+    {
+      "command": "npm run format:check",
+      "code": 0,
+      "log": "evidence/format-check.log"
+    },
+    {
+      "command": "npm run lint",
+      "code": 0,
+      "log": "evidence/lint.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "code": 0,
+      "log": "evidence/typecheck.log"
+    },
+    {
+      "command": "npm run test",
+      "code": 0,
+      "log": "evidence/test.log"
+    },
+    {
+      "command": "npm run build",
+      "code": 0,
+      "log": "evidence/build.log"
+    }
+  ],
+  "unitTestsPassed": 11,
+  "lintErrors": 0,
+  "lintWarnings": 10,
+  "html": "evidence/home-v3-html.json",
+  "cssCompositions": 10,
+  "emptyMediaTargets": 10,
+  "contrast": "evidence/home-v3-contrast.json",
+  "browser": {
+    "status": "BLOCKED",
+    "discoveredCases": 11,
+    "executedCases": 0,
+    "reason": "listen EPERM 127.0.0.1:8000",
+    "log": "evidence/home-v3-e2e.log"
+  },
+  "smoke": {
+    "status": "BLOCKED",
+    "exitCode": 1,
+    "reason": "connect EPERM 127.0.0.1:8000",
+    "log": "evidence/home-v3-smoke.log"
+  },
+  "imagesOrVideoAssetsAdded": false,
+  "screenshotsOrRecordingsCreated": false,
+  "completeInteriorPagesImplemented": false
+}

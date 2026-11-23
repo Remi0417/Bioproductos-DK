@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-17T18:17:28.040Z",
+  "command": "npm install --package-lock-only --ignore-scripts --audit --no-fund --cache .cache/npm --fetch-retries=0 --fetch-timeout=10000",
+  "exitCode": 0,
+  "auditedPackages": 1825,
+  "vulnerabilities": {
+    "total": 129,
+    "moderate": 71,
+    "high": 58
+  },
+  "status": "Requires security review; no forced updates applied. Not a production approval."
+}

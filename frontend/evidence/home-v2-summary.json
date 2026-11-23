@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-10-18T04:39:31.439Z",
+  "specification": "docs/PROMPT_01_HOME_BIOPRODUCTOS_DK_PREMIUM_V2.md",
+  "scope": "Home and shared editorial components only. Not accepted end to end.",
+  "monorepoVerification": "evidence/verification.json",
+  "finalFrontend": {
+    "exitCode": 0,
+    "log": "evidence/home-v2-final-frontend.log",
+    "unitTestsPassed": 11,
+    "lintWarnings": 10
+  },
+  "buildHtml": "evidence/home-v2-html.json",
+  "emptyMediaSlotCount": 10,
+  "colorPairs": "evidence/home-v2-contrast.json",
+  "browser": {
+    "status": "BLOCKED",
+    "executedCases": 0,
+    "discoveredCases": 11,
+    "reason": "listen EPERM 127.0.0.1:8000",
+    "log": "evidence/home-v2-e2e.log"
+  },
+  "smoke": {
+    "status": "BLOCKED",
+    "exitCode": 1,
+    "reason": "connect EPERM 127.0.0.1:8000",
+    "log": "evidence/home-v2-smoke.log"
+  },
+  "screenshotsOrRecordingsCreated": false,
+  "nextPageImplemented": false
+}

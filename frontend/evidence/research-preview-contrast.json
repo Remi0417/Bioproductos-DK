@@ -1,0 +1,40 @@
+{
+  "solidColorPairs": [
+    {
+      "text": "#f6f7e9",
+      "background": "#123e2c",
+      "ratio": 11.08
+    },
+    {
+      "text": "#f6f7e9",
+      "background": "#164d37",
+      "ratio": 9.02
+    },
+    {
+      "text": "#dfebcb",
+      "background": "#123e2c",
+      "ratio": 9.64
+    },
+    {
+      "text": "#dfebcb",
+      "background": "#164d37",
+      "ratio": 7.85
+    },
+    {
+      "text": "#d6e9a3",
+      "background": "#123e2c",
+      "ratio": 9.16
+    },
+    {
+      "text": "#d6e9a3",
+      "background": "#164d37",
+      "ratio": 7.46
+    },
+    {
+      "text": "#1b563c",
+      "background": "#d6e9a3",
+      "ratio": 6.57
+    }
+  ],
+  "scope": "Declared solid colours only, not browser axe or a complete accessibility audit."
+}

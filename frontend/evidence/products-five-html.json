@@ -1,0 +1,38 @@
+{
+  "links": [
+    {
+      "href": "/productos",
+      "text": "Cuidado del hogarDetergentes para ropaCítrico y eucaliptus. Dos aromas para el cuidado de tu ropa.Descubrir detergentes",
+      "photos": 1
+    },
+    {
+      "href": "/productos",
+      "text": "Cuidado personalChampús sólidosPara cabello seco, graso y normal. Tu rutina, en formato sólido.Descubrir champús",
+      "photos": 1
+    },
+    {
+      "href": "/productos",
+      "text": "Cuidado personalSales de bañoUn espacio en tu día para el cuidado personal.Descubrir sales de baño",
+      "photos": 1
+    },
+    {
+      "href": "/productos",
+      "text": "BioProductos DKJabonesFotografía por incorporarCuidado personalJabonesCuidado e higiene para tu día a día.Descubrir jabones",
+      "photos": 0
+    },
+    {
+      "href": "/productos",
+      "text": "BioProductos DKAcondicionadorFotografía por incorporarCuidado personalAcondicionadorUn complemento para tu rutina capilar.Descubrir acondicionador",
+      "photos": 0
+    }
+  ],
+  "pendingOriginalPhotos": [
+    "soap",
+    "conditioner"
+  ],
+  "photoPlacements": 10,
+  "homeSections": 11,
+  "uniqueProductIds": true,
+  "accessibleProductLabelReferencesResolve": true,
+  "scope": "Product section in compiled HTML; browser layout and interactions unverified."
+}

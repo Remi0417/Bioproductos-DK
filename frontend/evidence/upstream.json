@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/medusajs/dtc-starter",
+  "commit": "f677db438f27294fc50e4c7c6612e71ff38eeff5",
+  "obtainedAt": "2026-10-17",
+  "method": "npm install --prefix .downloads git+https://github.com/medusajs/dtc-starter.git --ignore-scripts --omit=dev",
+  "preserved": [
+    "AGENTS.md",
+    "README.md",
+    "PROMPT_INICIAL_CODEX.md",
+    "docs/"
+  ],
+  "packageManagerDecision": "npm workspaces; npm 11.13.0 installed on this Mac; official CLI supports --use-npm"
+}

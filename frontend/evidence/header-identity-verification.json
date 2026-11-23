@@ -1,0 +1,50 @@
+[
+  {
+    "command": "npm run format:check",
+    "code": 0,
+    "start": "2026-10-18T16:10:57.728Z",
+    "end": "2026-10-18T16:11:03.167Z"
+  },
+  {
+    "command": "npm run lint --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:11:03.169Z",
+    "end": "2026-10-18T16:11:09.658Z"
+  },
+  {
+    "command": "npm run typecheck --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:11:09.660Z",
+    "end": "2026-10-18T16:11:20.103Z"
+  },
+  {
+    "command": "npm test",
+    "code": 0,
+    "start": "2026-10-18T16:11:20.103Z",
+    "end": "2026-10-18T16:11:25.045Z"
+  },
+  {
+    "command": "npm run test:e2e -- --list",
+    "code": 0,
+    "start": "2026-10-18T16:11:25.047Z",
+    "end": "2026-10-18T16:11:27.007Z"
+  },
+  {
+    "command": "npm run build --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:11:27.008Z",
+    "end": "2026-10-18T16:12:24.165Z"
+  },
+  {
+    "command": "npm run test:e2e -- --grep 'header identity|mobile menu|keyboard skip|without JavaScript'",
+    "code": 1,
+    "result": "listen EPERM 127.0.0.1:8000; browser cases did not execute",
+    "log": "evidence/header-identity-e2e.log"
+  },
+  {
+    "control": "ROADMAP prefix preservation",
+    "code": 0,
+    "bytes": 61328,
+    "sha256": "284fb0803b65ab1f6ec88e1399f2a1fd46169304e532ffb709b8a33e6c745028"
+  }
+]

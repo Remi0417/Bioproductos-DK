@@ -1,0 +1,9 @@
+{
+  "headerActions": true,
+  "previewCartRenderedSynchronously": true,
+  "previewCartDoesNotLinkToBlockedCommerce": true,
+  "homeSections": 11,
+  "homePhotos": 6,
+  "browserVerification": "Blocked before tests: listen EPERM 127.0.0.1:8000",
+  "nativeMedusaEndToEnd": "Pending; cart reader validated with test fixtures only"
+}

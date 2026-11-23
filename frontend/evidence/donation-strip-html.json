@@ -1,0 +1,11 @@
+{
+  "compactStrip": true,
+  "donationRouteCompiled": true,
+  "donationHeading": true,
+  "receiptStatusVisible": true,
+  "mailLink": true,
+  "returnLink": true,
+  "mainFormsOrMedia": 0,
+  "homePhotos": 6,
+  "homeSections": 11
+}

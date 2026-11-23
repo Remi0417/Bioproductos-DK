@@ -1,0 +1,16 @@
+{
+  "original": {
+    "path": "apps/storefront/public/loogo/Logo circular BIO Productos DK.png",
+    "sha256": "33aa7837088386bc4c884ad9dc45ffa9fb15582e5db7b950625d8acbbc08d92a",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 1176048
+  },
+  "header": {
+    "path": "apps/storefront/public/images/brand/logo-dk-header.webp",
+    "width": 288,
+    "height": 288,
+    "bytes": 17692,
+    "hasAlpha": true
+  }
+}

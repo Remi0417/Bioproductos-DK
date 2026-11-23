@@ -1,0 +1,77 @@
+[
+  {
+    "name": "format-check",
+    "command": "npm run format:check",
+    "code": 0,
+    "start": "2026-10-18T06:27:52.717Z",
+    "end": "2026-10-18T06:27:57.514Z"
+  },
+  {
+    "name": "lint",
+    "command": "npm run lint",
+    "code": 0,
+    "start": "2026-10-18T06:27:57.515Z",
+    "end": "2026-10-18T06:28:09.429Z"
+  },
+  {
+    "name": "typecheck",
+    "command": "npm run typecheck",
+    "code": 0,
+    "start": "2026-10-18T06:28:09.429Z",
+    "end": "2026-10-18T06:28:30.755Z"
+  },
+  {
+    "name": "test",
+    "command": "npm test",
+    "code": 1,
+    "start": "2026-10-18T06:28:30.755Z",
+    "end": "2026-10-18T06:28:35.246Z"
+  },
+  {
+    "name": "build",
+    "command": "npm run build",
+    "code": 0,
+    "start": "2026-10-18T06:28:35.246Z",
+    "end": "2026-10-18T06:30:04.778Z"
+  },
+  {
+    "name": "test-final",
+    "command": "npm test",
+    "code": 0,
+    "log": "evidence/home-photos-test-final.log",
+    "note": "13 passed, including the actual Next asset matcher. Original 12-test failure retained; output heights are rounded to the expected integer pixel."
+  },
+  {
+    "name": "format-final",
+    "command": "npm run format:check",
+    "code": 0,
+    "log": "evidence/home-photos-format-final.log"
+  },
+  {
+    "name": "e2e-list",
+    "command": "npm run test:e2e -- --list",
+    "code": 0,
+    "log": "evidence/home-photos-e2e-list.log"
+  },
+  {
+    "name": "e2e",
+    "command": "npm run test:e2e",
+    "code": 1,
+    "log": "evidence/home-photos-e2e.log",
+    "note": "Server could not listen: EPERM 127.0.0.1:8000. Browser cases did not execute."
+  },
+  {
+    "name": "smoke",
+    "command": "npm run smoke",
+    "code": 1,
+    "log": "evidence/home-photos-smoke.log",
+    "note": "connect EPERM 127.0.0.1:8000."
+  },
+  {
+    "name": "roadmap-history",
+    "code": 0,
+    "bytesPreserved": 46610,
+    "sha256": "4e209f97166ef1676c7a2e144f0c7fed0f39593bc29af5767ec38ad6ff3b9061",
+    "note": "Exact original prefix retained; new session appended."
+  }
+]

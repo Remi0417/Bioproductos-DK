@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-18T04:37:41.503Z",
+  "scope": "Calculated solid color pairs only. Not rendered browser or full WCAG certification.",
+  "pairs": [
+    {
+      "name": "body on paper",
+      "foreground": "#17251e",
+      "background": "#f7f8f3",
+      "ratio": 14.91,
+      "minimum": 4.5
+    },
+    {
+      "name": "secondary on paper",
+      "foreground": "#53675c",
+      "background": "#f7f8f3",
+      "ratio": 5.68,
+      "minimum": 4.5
+    },
+    {
+      "name": "secondary on sage",
+      "foreground": "#53675c",
+      "background": "#e9eee5",
+      "ratio": 5.15,
+      "minimum": 4.5
+    },
+    {
+      "name": "primary action",
+      "foreground": "#ffffff",
+      "background": "#173f32",
+      "ratio": 11.71,
+      "minimum": 4.5
+    },
+    {
+      "name": "research secondary",
+      "foreground": "#d3dfd3",
+      "background": "#173f32",
+      "ratio": 8.51,
+      "minimum": 4.5
+    },
+    {
+      "name": "footer secondary",
+      "foreground": "#485e4f",
+      "background": "#e4eadf",
+      "ratio": 5.73,
+      "minimum": 4.5
+    },
+    {
+      "name": "focus on paper",
+      "foreground": "#936b2b",
+      "background": "#f7f8f3",
+      "ratio": 4.49,
+      "minimum": 3
+    },
+    {
+      "name": "focus on forest",
+      "foreground": "#f7f8f3",
+      "background": "#173f32",
+      "ratio": 10.97,
+      "minimum": 3
+    }
+  ]
+}

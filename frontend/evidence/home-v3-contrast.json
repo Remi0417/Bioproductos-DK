@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-10-18T04:59:53.641Z",
+  "scope": "Calculated solid color pairs only. Gradient surfaces and complete browser WCAG audit not certified.",
+  "pairs": [
+    {
+      "name": "body/paper",
+      "foreground": "#183429",
+      "background": "#f8f8f1",
+      "ratio": 12.6,
+      "minimum": 4.5
+    },
+    {
+      "name": "secondary/paper",
+      "foreground": "#506455",
+      "background": "#f8f8f1",
+      "ratio": 5.97,
+      "minimum": 4.5
+    },
+    {
+      "name": "primary/light",
+      "foreground": "#ffffff",
+      "background": "#173f32",
+      "ratio": 11.71,
+      "minimum": 4.5
+    },
+    {
+      "name": "primary/dark",
+      "foreground": "#173f32",
+      "background": "#d8ee9a",
+      "ratio": 9.26,
+      "minimum": 4.5
+    },
+    {
+      "name": "hero/body",
+      "foreground": "#d5e1cb",
+      "background": "#1a432f",
+      "ratio": 8.19,
+      "minimum": 4.5
+    },
+    {
+      "name": "pillar/light",
+      "foreground": "#4d634d",
+      "background": "#e5eddd",
+      "ratio": 5.45,
+      "minimum": 4.5
+    },
+    {
+      "name": "pillar/dark",
+      "foreground": "#cedfc1",
+      "background": "#1b4538",
+      "ratio": 7.65,
+      "minimum": 4.5
+    },
+    {
+      "name": "research/body",
+      "foreground": "#cbdac0",
+      "background": "#143d32",
+      "ratio": 8.22,
+      "minimum": 4.5
+    },
+    {
+      "name": "research/note",
+      "foreground": "#b8cba9",
+      "background": "#143d32",
+      "ratio": 6.97,
+      "minimum": 4.5
+    },
+    {
+      "name": "business/stone",
+      "foreground": "#506455",
+      "background": "#f0eadc",
+      "ratio": 5.31,
+      "minimum": 4.5
+    },
+    {
+      "name": "footer/secondary",
+      "foreground": "#bdd0b0",
+      "background": "#113729",
+      "ratio": 8,
+      "minimum": 4.5
+    },
+    {
+      "name": "footer/email",
+      "foreground": "#d8ee9a",
+      "background": "#113729",
+      "ratio": 10.37,
+      "minimum": 4.5
+    },
+    {
+      "name": "focus/paper",
+      "foreground": "#916024",
+      "background": "#f8f8f1",
+      "ratio": 5.04,
+      "minimum": 3
+    },
+    {
+      "name": "focus/dark",
+      "foreground": "#d8ee9a",
+      "background": "#153c2e",
+      "ratio": 9.67,
+      "minimum": 3
+    }
+  ]
+}

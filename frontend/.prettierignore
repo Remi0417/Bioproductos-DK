@@ -1,0 +1,11 @@
+node_modules
+.tools
+.downloads
+.official
+.cache
+.local
+pnpm-lock.yaml
+package-lock.json
+.next
+.medusa
+evidence

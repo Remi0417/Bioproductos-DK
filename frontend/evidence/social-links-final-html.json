@@ -1,0 +1,64 @@
+{
+  "groups": [
+    {
+      "placement": "dk2-socials dk2-socials--header",
+      "links": [
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.instagram.com/bioproductosdk/",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "Instagram de BioProductos DK (abre en otra pestaña)",
+          "title": "Instagram · BioProductos DK"
+        },
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.linkedin.com/company/bioproductos-dk/?originalSubdomain=cl",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "LinkedIn de BioProductos DK (abre en otra pestaña)",
+          "title": "LinkedIn · BioProductos DK"
+        },
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.facebook.com/profile.php?id=100086262922142",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "Facebook de BioProductos DK (abre en otra pestaña)",
+          "title": "Facebook · BioProductos DK"
+        }
+      ]
+    },
+    {
+      "placement": "dk2-socials dk2-socials--menu",
+      "links": [
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.instagram.com/bioproductosdk/",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "Instagram de BioProductos DK (abre en otra pestaña)",
+          "title": "Instagram · BioProductos DK"
+        },
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.linkedin.com/company/bioproductos-dk/?originalSubdomain=cl",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "LinkedIn de BioProductos DK (abre en otra pestaña)",
+          "title": "LinkedIn · BioProductos DK"
+        },
+        {
+          "class": "dk2-social-link",
+          "href": "https://www.facebook.com/profile.php?id=100086262922142",
+          "target": "_blank",
+          "rel": "noopener noreferrer",
+          "aria-label": "Facebook de BioProductos DK (abre en otra pestaña)",
+          "title": "Facebook · BioProductos DK"
+        }
+      ]
+    }
+  ],
+  "allOwnerProvidedDestinationsPresent": true,
+  "externalLinkAttributesValid": true
+}

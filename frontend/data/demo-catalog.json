@@ -1,0 +1,74 @@
+[
+  {
+    "sku": "DEMO-DET-01",
+    "handle": "demo-detergente-01",
+    "name": "Detergente · aroma 01",
+    "category": "Cuidado del hogar",
+    "kind": "detergent",
+    "price": 6990,
+    "stock": 12
+  },
+  {
+    "sku": "DEMO-DET-02",
+    "handle": "demo-detergente-02",
+    "name": "Detergente · aroma 02",
+    "category": "Cuidado del hogar",
+    "kind": "detergent",
+    "price": 6990,
+    "stock": 9
+  },
+  {
+    "sku": "DEMO-CHA-SECO",
+    "handle": "demo-champu-seco",
+    "name": "Champú sólido · cabello seco",
+    "category": "Cuidado personal",
+    "kind": "shampoo",
+    "price": 5490,
+    "stock": 15
+  },
+  {
+    "sku": "DEMO-CHA-GRASO",
+    "handle": "demo-champu-graso",
+    "name": "Champú sólido · cabello graso",
+    "category": "Cuidado personal",
+    "kind": "shampoo",
+    "price": 5490,
+    "stock": 8
+  },
+  {
+    "sku": "DEMO-CHA-NORMAL",
+    "handle": "demo-champu-normal",
+    "name": "Champú sólido · cabello normal",
+    "category": "Cuidado personal",
+    "kind": "shampoo",
+    "price": 5490,
+    "stock": 11
+  },
+  {
+    "sku": "DEMO-SAL-01",
+    "handle": "demo-sales-01",
+    "name": "Sales de baño · referencia 01",
+    "category": "Bienestar cotidiano",
+    "kind": "salt",
+    "price": 3990,
+    "stock": 10
+  },
+  {
+    "sku": "DEMO-SAL-02",
+    "handle": "demo-sales-02",
+    "name": "Sales de baño · referencia 02",
+    "category": "Bienestar cotidiano",
+    "kind": "salt",
+    "price": 3990,
+    "stock": 7
+  },
+  {
+    "sku": "DEMO-SAL-03",
+    "handle": "demo-sales-03",
+    "name": "Sales de baño · referencia 03",
+    "category": "Bienestar cotidiano",
+    "kind": "salt",
+    "price": 3990,
+    "stock": 13
+  }
+]

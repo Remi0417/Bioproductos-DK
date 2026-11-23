@@ -1,0 +1,38 @@
+[
+  {
+    "command": "npm run format:check",
+    "code": 0,
+    "start": "2026-10-18T15:42:09.623Z",
+    "end": "2026-10-18T15:42:14.588Z"
+  },
+  {
+    "command": "npm run lint --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T15:42:14.591Z",
+    "end": "2026-10-18T15:42:19.945Z"
+  },
+  {
+    "command": "npm run typecheck --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T15:42:19.946Z",
+    "end": "2026-10-18T15:42:29.945Z"
+  },
+  {
+    "command": "npm test",
+    "code": 0,
+    "start": "2026-10-18T15:42:29.946Z",
+    "end": "2026-10-18T15:42:34.533Z"
+  },
+  {
+    "command": "npm run test:e2e -- --list",
+    "code": 0,
+    "start": "2026-10-18T15:42:34.534Z",
+    "end": "2026-10-18T15:42:36.123Z"
+  },
+  {
+    "command": "npm run build --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T15:42:36.123Z",
+    "end": "2026-10-18T15:43:25.334Z"
+  }
+]

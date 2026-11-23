@@ -1,0 +1,27 @@
+{
+  "scope": "Production HTML and CSS artifacts, not a browser audit",
+  "sections": [
+    "S02",
+    "S01",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S12"
+  ],
+  "photos": [
+    "home-hero",
+    "home-products-detergent",
+    "home-products-shampoo",
+    "home-products-bath",
+    "home-business",
+    "home-founders"
+  ],
+  "pauseControl": 1,
+  "newColorsBundled": true,
+  "ribbonAnimationPreserved": true
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "original": "Dueñas dk.JPG",
+    "bytes": 1084146,
+    "sha256": "c98c0015c06ee8f88782d0f997a92e3c57f98519852d8886bd8117a5340fc133",
+    "heic": false,
+    "slug": "duenas-dk"
+  },
+  {
+    "original": "detergente modelo.JPG",
+    "bytes": 1595246,
+    "sha256": "6d3242f06bbf9de646c74a1e85241a5bfd52f4fff1a8d925555e4f040d7d498f",
+    "heic": true,
+    "slug": "detergente-modelo"
+  },
+  {
+    "original": "detergente.JPG",
+    "bytes": 3124788,
+    "sha256": "ddd3a0164892400fb1f703735aea0c55d996584f53866cad4dc6048ea7e93f61",
+    "heic": true,
+    "slug": "detergente"
+  },
+  {
+    "original": "foto principal.JPG",
+    "bytes": 1143959,
+    "sha256": "85e96b25905b64ac32734699c411d98dc4cc9f18d9d3078316e8cffbabe3a983",
+    "heic": false,
+    "slug": "foto-principal"
+  },
+  {
+    "original": "jabon modelo.JPG",
+    "bytes": 1667254,
+    "sha256": "3f0ee74bfa0b634f923eab8683b9f73c1cce9f797de72236ba23abe466798d47",
+    "heic": true,
+    "slug": "jabon-modelo"
+  },
+  {
+    "original": "sales de bañoo.JPG",
+    "bytes": 2404125,
+    "sha256": "fc2f2fe63c5a24ac43586c08f0f9b7bbd417a6c67970c4372ef03c7ddcfe3213",
+    "heic": true,
+    "slug": "sales-de-banoo"
+  }
+]

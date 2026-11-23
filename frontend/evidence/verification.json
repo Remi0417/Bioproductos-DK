@@ -1,0 +1,40 @@
+{
+  "scope": "Static checks, unit tests and compilation. Not runtime, browser or database certification.",
+  "results": [
+    {
+      "command": "npm run format:check",
+      "code": 0,
+      "startedAt": "2026-10-18T04:57:13.648Z",
+      "finishedAt": "2026-10-18T04:57:20.057Z",
+      "log": "evidence/format-check.log"
+    },
+    {
+      "command": "npm run lint",
+      "code": 0,
+      "startedAt": "2026-10-18T04:57:20.061Z",
+      "finishedAt": "2026-10-18T04:57:32.448Z",
+      "log": "evidence/lint.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "code": 0,
+      "startedAt": "2026-10-18T04:57:32.449Z",
+      "finishedAt": "2026-10-18T04:57:57.630Z",
+      "log": "evidence/typecheck.log"
+    },
+    {
+      "command": "npm run test",
+      "code": 0,
+      "startedAt": "2026-10-18T04:57:57.631Z",
+      "finishedAt": "2026-10-18T04:58:02.744Z",
+      "log": "evidence/test.log"
+    },
+    {
+      "command": "npm run build",
+      "code": 0,
+      "startedAt": "2026-10-18T04:58:02.745Z",
+      "finishedAt": "2026-10-18T04:59:39.407Z",
+      "log": "evidence/build.log"
+    }
+  ]
+}

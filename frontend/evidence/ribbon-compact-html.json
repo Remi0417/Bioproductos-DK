@@ -1,0 +1,9 @@
+{
+  "messageGroups": 2,
+  "messagesPerGroup": 5,
+  "duplicateHiddenFromAssistiveTechnology": true,
+  "labelAndPauseControlRemoved": true,
+  "readingWidthContainerRemoved": true,
+  "keyboardFocusable": true,
+  "nonRibbonCssRulesUnchanged": 502
+}

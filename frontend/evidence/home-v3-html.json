@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-18T05:00:18.009Z",
+  "scope": "Static build HTML and CSS source only. Not browser, layout, hydration, axe or visual acceptance.",
+  "heading": "Ciencia que transforma. Una nueva forma de cuidar.",
+  "sections": 12,
+  "emptyMediaTargets": [
+    "home-hero-video",
+    "home-products-detergent",
+    "home-products-shampoo",
+    "home-products-bath",
+    "home-science-process",
+    "home-research-lab",
+    "home-business",
+    "home-impact",
+    "home-founders",
+    "home-brands"
+  ],
+  "cssCompositions": 10,
+  "imageVideoIllustrationElements": 0,
+  "socialImageTags": 0,
+  "backgroundAssetUrls": 0,
+  "independentPaths": [
+    "/",
+    "/nosotras",
+    "/bio-investigacion",
+    "/productos",
+    "/empresas",
+    "/contacto",
+    "/bio-impacto",
+    "/donde-comprar",
+    "/informacion-legal"
+  ],
+  "verifiedPublicContactSource": "https://bioproductosdk.com/bio-impacto/"
+}

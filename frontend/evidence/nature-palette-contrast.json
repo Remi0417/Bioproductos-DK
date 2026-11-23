@@ -1,0 +1,162 @@
+{
+  "scope": "Static solid-color pairs read from actual CSS variables. Not a browser/axe audit, photo-overlay validation or visual acceptance.",
+  "pairs": [
+    {
+      "label": "Texto principal",
+      "foreground": "#18372a",
+      "background": "#fbf8f0",
+      "ratio": 12.223690936665337
+    },
+    {
+      "label": "Texto secundario",
+      "foreground": "#4c614d",
+      "background": "#fbf8f0",
+      "ratio": 6.333192992116336
+    },
+    {
+      "label": "Productos",
+      "foreground": "#4c614d",
+      "background": "#f0f5e8",
+      "ratio": 6.059277541597988
+    },
+    {
+      "label": "Productos: extremo cálido",
+      "foreground": "#4c614d",
+      "background": "#f3e6c8",
+      "ratio": 5.429523821818604
+    },
+    {
+      "label": "Pilar biotecnología",
+      "foreground": "#4c614d",
+      "background": "#e3eed2",
+      "ratio": 5.577693396088254
+    },
+    {
+      "label": "Pilar innovación",
+      "foreground": "#4c614d",
+      "background": "#f3e6c8",
+      "ratio": 5.429523821818604
+    },
+    {
+      "label": "Pilar sustentabilidad",
+      "foreground": "#4c614d",
+      "background": "#ddeabf",
+      "ratio": 5.311798636442474
+    },
+    {
+      "label": "Pilar nanotecnología",
+      "foreground": "#dfebcb",
+      "background": "#1b563c",
+      "ratio": 6.910977306989906
+    },
+    {
+      "label": "Botón primario",
+      "foreground": "#fbf8f0",
+      "background": "#1b563c",
+      "ratio": 8.099603440518749
+    },
+    {
+      "label": "Botón primario hover",
+      "foreground": "#fbf8f0",
+      "background": "#2f7146",
+      "ratio": 5.54048689279309
+    },
+    {
+      "label": "Botón sobre oscuro",
+      "foreground": "#18372a",
+      "background": "#d6e9a3",
+      "ratio": 9.911162341533368
+    },
+    {
+      "label": "Botón oscuro hover",
+      "foreground": "#18372a",
+      "background": "#e3f0b9",
+      "ratio": 10.768064752626257
+    },
+    {
+      "label": "Cuaderno científico",
+      "foreground": "#4c614d",
+      "background": "#eaf2d9",
+      "ratio": 5.825638893000789
+    },
+    {
+      "label": "Cuaderno: acento",
+      "foreground": "#2f7146",
+      "background": "#eaf2d9",
+      "ratio": 5.096461764073085
+    },
+    {
+      "label": "Bio Investigación",
+      "foreground": "#dfebcb",
+      "background": "#164d37",
+      "ratio": 7.849651650918816
+    },
+    {
+      "label": "I+D",
+      "foreground": "#d6e9a3",
+      "background": "#164d37",
+      "ratio": 7.459279879039745
+    },
+    {
+      "label": "Circularidad",
+      "foreground": "#4c614d",
+      "background": "#ddeabf",
+      "ratio": 5.311798636442474
+    },
+    {
+      "label": "Circularidad: extremo salvia",
+      "foreground": "#4c614d",
+      "background": "#e3eed2",
+      "ratio": 5.577693396088254
+    },
+    {
+      "label": "Cinta de mensajes",
+      "foreground": "#1b563c",
+      "background": "#cbe39c",
+      "ratio": 6.142939494916856
+    },
+    {
+      "label": "Cinta: separador",
+      "foreground": "#1b563c",
+      "background": "#cbe39c",
+      "ratio": 6.142939494916856
+    },
+    {
+      "label": "Chip champú",
+      "foreground": "#6b492e",
+      "background": "#f3e6c8",
+      "ratio": 6.480555849621024
+    },
+    {
+      "label": "Chip sales",
+      "foreground": "#6b492e",
+      "background": "#f4e6d5",
+      "ratio": 6.542625433354055
+    },
+    {
+      "label": "Nota humana",
+      "foreground": "#6b492e",
+      "background": "#f4e6d5",
+      "ratio": 6.542625433354055
+    },
+    {
+      "label": "Footer",
+      "foreground": "#dfebcb",
+      "background": "#103c2a",
+      "ratio": 9.920789797182682
+    },
+    {
+      "label": "Link footer",
+      "foreground": "#d6e9a3",
+      "background": "#103c2a",
+      "ratio": 9.4274180574173
+    },
+    {
+      "label": "Foco sobre marfil",
+      "foreground": "#98531f",
+      "background": "#fbf8f0",
+      "ratio": 5.508388905683519
+    }
+  ],
+  "minimum": 5.096461764073085
+}

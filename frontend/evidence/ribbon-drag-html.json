@@ -1,0 +1,7 @@
+{
+  "serverRenderedMessageGroups": 2,
+  "messagesPerGroup": 5,
+  "keyboardFocusable": true,
+  "noVisiblePauseControl": true,
+  "nativePointerAndTouchVerification": "pending: local server EPERM"
+}

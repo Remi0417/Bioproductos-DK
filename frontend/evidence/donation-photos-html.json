@@ -1,0 +1,13 @@
+{
+  "donationPhotos": [
+    "home-products-detergent",
+    "home-products-shampoo",
+    "home-products-bath",
+    "home-founders"
+  ],
+  "photosBetweenCopyAndButton": true,
+  "lazyLocalPhotos": true,
+  "distinctOwnerPhotos": 6,
+  "totalHomePhotoPlacements": 10,
+  "homeSections": 11
+}

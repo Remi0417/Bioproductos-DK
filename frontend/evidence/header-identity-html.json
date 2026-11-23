@@ -1,0 +1,28 @@
+{
+  "scope": "Static compiled HTML, not browser rendering",
+  "sections": [
+    "S02",
+    "S01",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S12"
+  ],
+  "photoIds": [
+    "home-hero",
+    "home-products-detergent",
+    "home-products-shampoo",
+    "home-products-bath",
+    "home-business",
+    "home-founders"
+  ],
+  "nativePauseCheckbox": 1,
+  "ariaHiddenDuplicateLists": 1,
+  "oldPreviewBarRemoved": true,
+  "demoNoticesPreservedInBodyAndFooter": true
+}

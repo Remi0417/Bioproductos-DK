@@ -1,0 +1,1492 @@
+.page {
+  --forest: #173f30;
+  --leaf: #34754b;
+  --moss: #789653;
+  --lime: #cfe39a;
+  --ink: #1c3329;
+  --muted: #627268;
+  --paper: #fbf9f2;
+  --warm: #f1f1e8;
+  --line: #dce2d5;
+  overflow: clip;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.wrap {
+  width: min(100% - 48px, 1240px);
+  margin-inline: auto;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 82px) 0 0;
+  background:
+    radial-gradient(
+      ellipse at 86% 20%,
+      rgb(171 194 132 / 0.2),
+      transparent 32%
+    ),
+    linear-gradient(132deg, #faf8ef 0%, #f1f2e8 55%, #e8eee2 100%);
+}
+
+.heroTexture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image: radial-gradient(
+    rgb(38 94 59 / 0.17) 0.65px,
+    transparent 0.65px
+  );
+  background-size: 13px 13px;
+  mask-image: linear-gradient(90deg, transparent 38%, #000 100%);
+}
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  top: -360px;
+  right: -100px;
+  width: min(75vw, 920px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(52 117 75 / 0.12);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgb(52 117 75 / 0.025),
+    0 0 0 68px rgb(52 117 75 / 0.025),
+    0 0 0 102px rgb(52 117 75 / 0.025);
+  content: "";
+}
+
+.eyebrow,
+.kicker {
+  margin: 0;
+  color: var(--leaf);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.eyebrow > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--moss);
+  box-shadow: 0 0 0 5px rgb(120 150 83 / 0.12);
+}
+
+.eyebrow i {
+  color: #aab39e;
+  font-style: normal;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 92px);
+  padding: clamp(42px, 5vw, 72px) 0 52px;
+}
+
+.heroCopy h1,
+.sectionHeading h2,
+.materialHeading h2,
+.pathIntro h2,
+.impactCopy h2,
+.collabGrid h2 {
+  margin: 0;
+  font-size: clamp(39px, 5.2vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.04;
+}
+
+.heroCopy h1 em,
+.sectionHeading h2 em,
+.pathIntro h2 em,
+.impactCopy h2 em,
+.collabGrid h2 em {
+  color: var(--leaf);
+  font-style: normal;
+}
+
+.heroLead {
+  max-width: 600px;
+  margin: 25px 0 0;
+  color: #53655a;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.8;
+}
+
+.heroActions,
+.collabActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.primaryButton {
+  color: #fff;
+  background: var(--forest);
+  box-shadow: 0 9px 24px rgb(23 63 48 / 0.18);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  background: #245c40;
+  box-shadow: 0 13px 28px rgb(23 63 48 / 0.23);
+}
+
+.secondaryButton {
+  color: var(--forest);
+  border-color: rgb(23 63 48 / 0.19);
+  background: rgb(255 255 255 / 0.4);
+}
+
+.secondaryButton:hover {
+  transform: translateY(-2px);
+  border-color: rgb(23 63 48 / 0.36);
+  background: rgb(255 255 255 / 0.78);
+}
+
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.sectionNav a:focus-visible,
+.inlineLink:focus-visible,
+.collabFooter a:focus-visible,
+.materialCard summary:focus-visible {
+  outline: 3px solid #93b65c;
+  outline-offset: 4px;
+}
+
+.heroFootnote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 34px;
+  color: #728174;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.heroFootnote b {
+  color: #9bb581;
+}
+
+.heroVisual {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+}
+
+.visualOrb {
+  position: relative;
+  width: min(100%, 430px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(50 97 59 / 0.1);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgb(255 255 255 / 0.83) 0 27%,
+      transparent 27.5%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgb(206 224 173 / 0.44),
+      rgb(219 231 202 / 0.14) 59%,
+      transparent 60%
+    );
+  box-shadow:
+    inset 0 0 0 21px rgb(255 255 255 / 0.25),
+    0 28px 70px rgb(50 75 44 / 0.1);
+}
+
+.visualOrb::before,
+.visualOrb::after,
+.visualHalo {
+  position: absolute;
+  inset: 11%;
+  border: 1px solid rgb(53 102 66 / 0.18);
+  border-radius: 50%;
+  content: "";
+}
+
+.visualOrb::after {
+  inset: 21%;
+  border-style: dashed;
+  border-color: rgb(53 102 66 / 0.18);
+}
+
+.visualHalo {
+  inset: 2%;
+  border-color: rgb(53 102 66 / 0.1);
+}
+
+.visualMark {
+  z-index: 1;
+  width: 43%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(23 63 48 / 0.12);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fffef9, #eaf1df);
+  box-shadow:
+    0 18px 44px rgb(23 63 48 / 0.12),
+    inset 0 1px 0 #fff;
+}
+
+.visualMark svg {
+  width: 70%;
+  overflow: visible;
+}
+
+.orbitTrack,
+.orbitTrackReverse {
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: science-orbit 32s linear infinite;
+}
+
+.orbitTrackReverse {
+  animation-duration: 41s;
+  animation-direction: reverse;
+}
+
+.orbitLabel {
+  position: absolute;
+  z-index: 2;
+  padding: 8px 11px;
+  border: 1px solid rgb(50 97 59 / 0.14);
+  border-radius: 999px;
+  color: var(--forest);
+  background: #fbfaf5;
+  box-shadow: 0 7px 19px rgb(23 63 48 / 0.08);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+}
+
+.orbitTop {
+  top: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orbitRight {
+  top: 51%;
+  right: -3%;
+}
+
+.orbitBottom {
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.visualCaption {
+  width: min(100%, 430px);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 19px 0 0;
+  color: #68776a;
+  font-size: 11px;
+}
+
+.visualCaption span {
+  color: var(--leaf);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.sectionNav {
+  border-top: 1px solid rgb(31 76 48 / 0.13);
+}
+
+.sectionNav > div,
+.sectionNav {
+  min-height: 62px;
+}
+
+.sectionNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 5vw, 64px);
+}
+
+.sectionNav a {
+  color: #5e7062;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.sectionNav a:hover {
+  color: var(--forest);
+}
+
+.section {
+  padding: clamp(76px, 9vw, 128px) 0;
+  scroll-margin-top: 110px;
+}
+
+.intro {
+  background: var(--paper);
+}
+
+.sectionHeading {
+  max-width: 880px;
+}
+
+.sectionHeading h2,
+.materialHeading h2,
+.pathIntro h2,
+.impactCopy h2,
+.collabGrid h2 {
+  margin-top: 17px;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.12;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(30px, 8vw, 130px);
+  align-items: start;
+  margin-top: 54px;
+  padding-top: 27px;
+  border-top: 1px solid var(--line);
+}
+
+.introStatement {
+  max-width: 440px;
+  margin: 0;
+  color: var(--forest);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 570;
+  letter-spacing: -0.04em;
+  line-height: 1.28;
+}
+
+.introBody {
+  max-width: 660px;
+}
+
+.introBody p,
+.pathIntro > p:not(.kicker),
+.impactCopy > p:not(.kicker),
+.collabGrid > div > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.introBody p + p {
+  margin-top: 16px;
+}
+
+.principleRail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 57px;
+}
+
+.principle {
+  position: relative;
+  min-height: 146px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 21px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(150deg, #fffefa, #f5f5ed);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.principle:hover {
+  transform: translateY(-4px);
+  border-color: #b5c79c;
+  box-shadow: 0 14px 32px rgb(36 74 48 / 0.08);
+}
+
+.principle > span:first-child {
+  color: #88a271;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.principle h3 {
+  margin: 0;
+  color: var(--forest);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.principle p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.principleArrow {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  color: #8ba875;
+  font-size: 15px;
+}
+
+.materialSection {
+  background: var(--warm);
+}
+
+.materialHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(250px, 0.65fr);
+  align-items: end;
+  gap: 40px;
+}
+
+.materialHeading h2 {
+  max-width: 710px;
+}
+
+.materialHeading > p {
+  max-width: 380px;
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.materialGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 43px;
+}
+
+.materialCard {
+  overflow: hidden;
+  min-height: 258px;
+  border: 1px solid rgb(41 76 49 / 0.13);
+  border-radius: 18px;
+  background: #fbfaf5;
+  box-shadow: 0 10px 26px rgb(35 62 42 / 0.045);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.materialCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgb(35 62 42 / 0.1);
+}
+
+.materialCard summary {
+  position: relative;
+  min-height: 258px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 17px 18px 21px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.materialCard summary::-webkit-details-marker {
+  display: none;
+}
+
+.materialNumber {
+  color: #788b73;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.materialGlyph {
+  position: relative;
+  width: 94px;
+  height: 94px;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  margin: 13px 0 18px;
+  border: 1px solid rgb(40 80 46 / 0.12);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(255 255 255 / 0.96) 0 32%, transparent 33%),
+    linear-gradient(140deg, #e7edd9, #cbdab5);
+  transition: transform 350ms ease;
+}
+
+.materialCard:hover .materialGlyph,
+.materialCard[open] .materialGlyph {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.materialGlyph::before,
+.materialGlyph::after,
+.materialGlyph i {
+  position: absolute;
+  display: block;
+  content: "";
+}
+
+.materialGlyph::before {
+  width: 29px;
+  height: 40px;
+  border: 1.5px solid rgb(44 92 56 / 0.65);
+  border-radius: 80% 8% 72% 20%;
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 0.7),
+    rgb(122 157 97 / 0.19)
+  );
+  transform: rotate(-31deg);
+}
+
+.materialGlyph::after {
+  width: 43px;
+  height: 1px;
+  background: rgb(44 92 56 / 0.44);
+  transform: rotate(-50deg);
+}
+
+.materialGlyph i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #547c4b;
+  box-shadow:
+    18px -12px 0 #89a56c,
+    -19px 15px 0 #b6c991;
+}
+
+.shell .materialGlyph {
+  background:
+    radial-gradient(circle, #fffefa 0 34%, transparent 35%),
+    linear-gradient(145deg, #f3ecd8, #ddd2b4);
+}
+
+.citrus .materialGlyph {
+  background:
+    radial-gradient(circle, #fff9df 0 34%, transparent 35%),
+    linear-gradient(145deg, #f2e6be, #e5c879);
+}
+
+.seed .materialGlyph {
+  background:
+    radial-gradient(circle, #fbf5e8 0 34%, transparent 35%),
+    linear-gradient(145deg, #e8d9c2, #bba482);
+}
+
+.materialCategory {
+  color: #738071;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.materialName {
+  margin-top: 4px;
+  color: var(--forest);
+  font-size: 18px;
+  font-weight: 720;
+  letter-spacing: -0.03em;
+}
+
+.materialAction {
+  position: absolute;
+  right: 17px;
+  bottom: 17px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d6decb;
+  border-radius: 50%;
+  color: var(--forest);
+  font-size: 18px;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease;
+}
+
+.materialCard[open] .materialAction {
+  transform: rotate(45deg);
+  background: #e5ecd9;
+}
+
+.materialCard > p {
+  margin: -2px 18px 20px;
+  padding-top: 14px;
+  border-top: 1px solid #e4e8dd;
+  color: #5b6d60;
+  font-size: 12px;
+  line-height: 1.65;
+  animation: reveal 220ms ease both;
+}
+
+.sourceNote {
+  margin: 17px 0 0;
+  color: #738071;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.pathSection {
+  padding-bottom: 0;
+  background: var(--paper);
+}
+
+.pathSection > .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(42px, 9vw, 142px);
+  padding-bottom: clamp(70px, 8vw, 112px);
+}
+
+.pathIntro {
+  position: sticky;
+  top: 140px;
+  align-self: start;
+}
+
+.pathIntro h2 {
+  max-width: 520px;
+}
+
+.pathIntro > p:not(.kicker) {
+  margin-top: 22px;
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  color: var(--leaf);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration-color: rgb(52 117 75 / 0.3);
+  text-underline-offset: 5px;
+}
+
+.pathList {
+  position: relative;
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pathList::before {
+  position: absolute;
+  top: 29px;
+  bottom: 42px;
+  left: 22px;
+  width: 1px;
+  background: linear-gradient(#91ad75, #d9e2d0);
+  content: "";
+}
+
+.pathStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 18px;
+  padding: 0 0 34px;
+}
+
+.pathNumber {
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #c5d4b7;
+  border-radius: 50%;
+  color: var(--forest);
+  background: var(--paper);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.pathConnector {
+  position: absolute;
+  top: 53px;
+  left: 17px;
+  color: #87a36e;
+  font-size: 14px;
+}
+
+.pathStep h3 {
+  margin: 2px 0 8px;
+  color: var(--forest);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.pathStep p {
+  max-width: 540px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.pathDisclaimer {
+  padding: 19px 0;
+  border-top: 1px solid var(--line);
+  background: var(--warm);
+}
+
+.pathDisclaimer > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pathDisclaimer span {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #a9bb95;
+  border-radius: 50%;
+  color: var(--leaf);
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.pathDisclaimer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.impactSection {
+  background: var(--warm);
+}
+
+.impactPanel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 390px;
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  align-items: center;
+  gap: clamp(35px, 7vw, 90px);
+  padding: clamp(35px, 6vw, 72px);
+  border-radius: 28px;
+  color: #edf3e9;
+  background:
+    radial-gradient(
+      ellipse at 10% 88%,
+      rgb(147 183 107 / 0.23),
+      transparent 37%
+    ),
+    linear-gradient(124deg, #173f30, #245b40 62%, #1c4b36);
+  box-shadow: 0 24px 65px rgb(29 68 45 / 0.16);
+}
+
+.impactPanel::before {
+  position: absolute;
+  z-index: -1;
+  top: -280px;
+  left: -120px;
+  width: 680px;
+  aspect-ratio: 1;
+  border: 1px solid rgb(232 242 216 / 0.13);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px rgb(232 242 216 / 0.025),
+    0 0 0 70px rgb(232 242 216 / 0.025);
+  content: "";
+}
+
+.impactArt {
+  position: relative;
+  width: min(100%, 290px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  border: 1px solid rgb(224 239 206 / 0.22);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(229 240 207 / 0.12), transparent 68%);
+}
+
+.impactArt > span {
+  position: absolute;
+  inset: 11%;
+  border: 1px solid rgb(224 239 206 / 0.2);
+  border-radius: 50%;
+}
+
+.impactArt > span:nth-child(2) {
+  inset: 24%;
+  border-style: dashed;
+}
+
+.impactArt svg {
+  position: relative;
+  width: 54%;
+  filter: drop-shadow(0 12px 17px rgb(3 24 16 / 0.22));
+}
+
+.impactCopy .kicker {
+  color: #c6dd9a;
+}
+
+.impactCopy h2 {
+  max-width: 660px;
+  color: #fff;
+}
+
+.impactCopy h2 em {
+  color: #d4e6ad;
+}
+
+.impactCopy > p:not(.kicker) {
+  max-width: 690px;
+  margin-top: 20px;
+  color: #d2dfd2;
+}
+
+.impactTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.impactTags span {
+  padding: 8px 11px;
+  border: 1px solid rgb(224 239 206 / 0.24);
+  border-radius: 99px;
+  color: #e2ebda;
+  background: rgb(255 255 255 / 0.055);
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.collaboration {
+  padding-top: clamp(78px, 9vw, 120px);
+  padding-bottom: 27px;
+  background: var(--paper);
+}
+
+.collabEyebrow,
+.collabFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  color: #748071;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.collabGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  align-items: center;
+  gap: clamp(34px, 8vw, 120px);
+  padding: 45px 0 56px;
+}
+
+.collabGrid h2 {
+  margin-top: 0;
+}
+
+.collabGrid > div > p {
+  max-width: 520px;
+}
+
+.collabActions {
+  gap: 10px;
+  margin-top: 21px;
+}
+
+.collabActions .primaryButton,
+.collabActions .secondaryButton {
+  min-height: 44px;
+  padding-inline: 15px;
+  font-size: 11px;
+}
+
+.collabFooter {
+  align-items: center;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+  font-size: 8px;
+}
+
+.collabFooter a {
+  color: var(--leaf);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes science-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 960px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.78fr);
+    gap: 26px;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(39px, 6vw, 58px);
+  }
+
+  .principleRail,
+  .materialGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .principle {
+    min-height: 120px;
+  }
+
+  .impactPanel {
+    grid-template-columns: 0.62fr 1.38fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    width: min(100% - 36px, 560px);
+  }
+
+  .hero {
+    padding-top: 38px;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 37px 0 35px;
+  }
+
+  .heroCopy h1 {
+    max-width: 540px;
+    font-size: clamp(40px, 11vw, 58px);
+  }
+
+  .heroLead {
+    margin-top: 17px;
+    font-size: 14px;
+  }
+
+  .heroActions {
+    align-items: stretch;
+    gap: 9px;
+    margin-top: 22px;
+  }
+
+  .heroActions > a {
+    flex: 1 1 auto;
+    justify-content: space-between;
+    padding-inline: 15px;
+    font-size: 11px;
+  }
+
+  .heroFootnote {
+    margin-top: 21px;
+    font-size: 8px;
+  }
+
+  .heroVisual {
+    width: min(100%, 380px);
+    justify-self: center;
+  }
+
+  .visualOrb {
+    width: 100%;
+  }
+
+  .orbitRight {
+    right: -1%;
+  }
+
+  .sectionNav {
+    min-height: 54px;
+    overflow-x: auto;
+    gap: 24px;
+    scrollbar-width: none;
+  }
+
+  .sectionNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sectionNav a {
+    flex: 0 0 auto;
+    font-size: 11px;
+  }
+
+  .section {
+    padding: 67px 0;
+  }
+
+  .sectionHeading h2,
+  .materialHeading h2,
+  .pathIntro h2,
+  .impactCopy h2,
+  .collabGrid h2 {
+    font-size: clamp(32px, 8.2vw, 43px);
+  }
+
+  .introGrid,
+  .materialHeading,
+  .pathSection > .wrap,
+  .collabGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .introGrid {
+    margin-top: 34px;
+  }
+
+  .principleRail {
+    gap: 9px;
+    margin-top: 35px;
+  }
+
+  .principle {
+    min-height: 128px;
+    gap: 10px;
+    padding: 16px 13px;
+    border-radius: 13px;
+  }
+
+  .principle h3 {
+    font-size: 15px;
+  }
+
+  .principle p {
+    font-size: 11px;
+  }
+
+  .materialHeading > p {
+    max-width: 560px;
+  }
+
+  .materialGrid {
+    gap: 9px;
+    margin-top: 28px;
+  }
+
+  .materialCard,
+  .materialCard summary {
+    min-height: 234px;
+  }
+
+  .materialCard summary {
+    padding: 13px 13px 17px;
+  }
+
+  .materialGlyph {
+    width: 78px;
+    height: 78px;
+    margin: 12px 0 14px;
+  }
+
+  .materialName {
+    max-width: 100%;
+    font-size: 15px;
+  }
+
+  .materialCategory {
+    font-size: 8px;
+  }
+
+  .materialAction {
+    right: 10px;
+    bottom: 12px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .pathSection {
+    padding-bottom: 0;
+  }
+
+  .pathSection > .wrap {
+    padding-bottom: 60px;
+  }
+
+  .pathIntro {
+    position: static;
+  }
+
+  .pathList {
+    margin-top: 20px;
+  }
+
+  .pathStep {
+    gap: 13px;
+    padding-bottom: 25px;
+  }
+
+  .pathStep h3 {
+    font-size: 18px;
+  }
+
+  .pathStep p {
+    font-size: 12px;
+  }
+
+  .pathDisclaimer > div {
+    align-items: flex-start;
+  }
+
+  .impactSection {
+    padding: 53px 0;
+  }
+
+  .impactPanel {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 29px 23px;
+    border-radius: 22px;
+  }
+
+  .impactArt {
+    width: min(68%, 220px);
+  }
+
+  .impactCopy > p:not(.kicker) {
+    font-size: 13px;
+  }
+
+  .impactTags span {
+    font-size: 9px;
+  }
+
+  .collaboration {
+    padding-top: 67px;
+    padding-bottom: 22px;
+  }
+
+  .collabGrid {
+    padding: 33px 0 40px;
+  }
+
+  .collabGrid > div > p {
+    font-size: 13px;
+  }
+
+  .collabActions {
+    align-items: stretch;
+  }
+
+  .collabActions > a {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  .collabEyebrow,
+  .collabFooter {
+    font-size: 7px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 390px) {
+  .wrap {
+    width: min(100% - 30px, 560px);
+  }
+
+  .heroCopy h1 {
+    font-size: 38px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .heroActions > a {
+    width: 100%;
+  }
+
+  .materialGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .materialCard,
+  .materialCard summary {
+    min-height: 205px;
+  }
+
+  .materialGlyph {
+    align-self: flex-start;
+    margin-top: 9px;
+    margin-bottom: 10px;
+  }
+
+  .principle {
+    min-height: 140px;
+    display: block;
+  }
+
+  .principle > span:first-child {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+:global(html[data-theme="dark"]) .page {
+  --forest: #c5dfb3;
+  --leaf: #a8ce91;
+  --moss: #a5c57d;
+  --lime: #d5e99e;
+  --ink: #edf3eb;
+  --muted: #bdc9bf;
+  --paper: #141a16;
+  --warm: #1b241e;
+  --line: #35443a;
+}
+
+:global(html[data-theme="dark"]) .hero {
+  background:
+    radial-gradient(ellipse at 86% 20%, rgb(99 142 81 / 0.17), transparent 32%),
+    linear-gradient(132deg, #19221b, #202b21 60%, #18231d);
+}
+
+:global(html[data-theme="dark"]) .heroTexture {
+  opacity: 0.2;
+}
+
+:global(html[data-theme="dark"]) .heroLead,
+:global(html[data-theme="dark"]) .introBody p,
+:global(html[data-theme="dark"]) .materialHeading > p,
+:global(html[data-theme="dark"]) .pathIntro > p:not(.kicker),
+:global(html[data-theme="dark"]) .pathStep p,
+:global(html[data-theme="dark"]) .collabGrid > div > p {
+  color: #c4cec3;
+}
+
+:global(html[data-theme="dark"]) .sectionNav a,
+:global(html[data-theme="dark"]) .heroFootnote,
+:global(html[data-theme="dark"]) .visualCaption,
+:global(html[data-theme="dark"]) .sourceNote,
+:global(html[data-theme="dark"]) .pathDisclaimer p {
+  color: #aebcaf;
+}
+
+:global(html[data-theme="dark"]) .visualOrb {
+  border-color: rgb(178 207 157 / 0.18);
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgb(33 45 35 / 0.95) 0 27%,
+      transparent 27.5%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgb(90 123 73 / 0.24),
+      rgb(54 74 49 / 0.12) 59%,
+      transparent 60%
+    );
+  box-shadow:
+    inset 0 0 0 21px rgb(255 255 255 / 0.02),
+    0 28px 70px rgb(0 0 0 / 0.18);
+}
+
+:global(html[data-theme="dark"]) .visualMark {
+  border-color: rgb(178 207 157 / 0.18);
+  background: linear-gradient(145deg, #26352a, #1d2b21);
+}
+
+:global(html[data-theme="dark"]) .orbitLabel {
+  border-color: rgb(178 207 157 / 0.2);
+  color: #d5e6c7;
+  background: #202b22;
+}
+
+:global(html[data-theme="dark"]) .principle,
+:global(html[data-theme="dark"]) .materialCard {
+  border-color: #39483b;
+  background: linear-gradient(150deg, #202a22, #1a231d);
+}
+
+:global(html[data-theme="dark"]) .materialCategory,
+:global(html[data-theme="dark"]) .materialCard > p {
+  color: #b9c7b9;
+}
+
+:global(html[data-theme="dark"]) .materialCard > p {
+  border-top-color: #3a493c;
+}
+
+:global(html[data-theme="dark"]) .materialGlyph {
+  border-color: rgb(178 207 157 / 0.2);
+  background:
+    radial-gradient(circle, #26342a 0 32%, transparent 33%),
+    linear-gradient(145deg, #374936, #2d3c2d);
+}
+
+:global(html[data-theme="dark"]) .shell .materialGlyph {
+  background:
+    radial-gradient(circle, #353329 0 34%, transparent 35%),
+    linear-gradient(145deg, #514b35, #39372b);
+}
+
+:global(html[data-theme="dark"]) .citrus .materialGlyph {
+  background:
+    radial-gradient(circle, #403b27 0 34%, transparent 35%),
+    linear-gradient(145deg, #5a5030, #423d2c);
+}
+
+:global(html[data-theme="dark"]) .seed .materialGlyph {
+  background:
+    radial-gradient(circle, #3c352b 0 34%, transparent 35%),
+    linear-gradient(145deg, #574938, #40372c);
+}
+
+:global(html[data-theme="dark"]) .materialGlyph::before {
+  border-color: rgb(190 215 166 / 0.65);
+}
+
+:global(html[data-theme="dark"]) .materialGlyph::after {
+  background: rgb(190 215 166 / 0.44);
+}
+
+:global(html[data-theme="dark"]) .materialGlyph i {
+  background: #a4c784;
+  box-shadow:
+    18px -12px 0 #799c66,
+    -19px 15px 0 #c1d69e;
+}
+
+:global(html[data-theme="dark"]) .materialAction {
+  border-color: #50614f;
+  color: #d3e3c4;
+}
+
+:global(html[data-theme="dark"]) .secondaryButton {
+  border-color: rgb(197 223 179 / 0.35);
+  color: #d9e8d0;
+  background: rgb(255 255 255 / 0.035);
+}
+
+:global(html[data-theme="dark"]) .pathNumber {
+  border-color: #637b5d;
+  color: #d0e4be;
+  background: var(--paper);
+}
+
+:global(html[data-theme="dark"]) .impactPanel {
+  background:
+    radial-gradient(
+      ellipse at 10% 88%,
+      rgb(147 183 107 / 0.16),
+      transparent 37%
+    ),
+    linear-gradient(124deg, #17281e, #203b2b 62%, #1b3023);
+}
+
+:global(html[data-theme="dark"]) .impactCopy > p:not(.kicker) {
+  color: #c8d7c8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

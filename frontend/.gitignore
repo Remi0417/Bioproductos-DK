@@ -1,0 +1,27 @@
+# Local secrets (examples are intentionally versioned)
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+!.env.template
+!**/.env.template
+node_modules/
+.next/
+.medusa/
+.turbo/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+*.log
+.DS_Store
+.tools/
+.downloads/
+.official/
+.cache/
+.local/
+*.pem
+*.key

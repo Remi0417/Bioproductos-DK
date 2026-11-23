@@ -1,0 +1,25 @@
+{
+  "familyLinks": [
+    {
+      "href": "/productos",
+      "labelledby": "home-products-detergent-title home-products-detergent-action",
+      "photos": 1,
+      "text": "Cuidado del hogarDetergentes para ropaCítrico y eucaliptus. Dos aromas para el cuidado de tu ropa.Descubrir detergentes"
+    },
+    {
+      "href": "/productos",
+      "labelledby": "home-products-shampoo-title home-products-shampoo-action",
+      "photos": 1,
+      "text": "Cuidado personalChampús sólidosPara cabello seco, graso y normal. Tu rutina, en formato sólido.Descubrir champús"
+    },
+    {
+      "href": "/productos",
+      "labelledby": "home-products-bath-title home-products-bath-action",
+      "photos": 1,
+      "text": "Cuidado personalSales de bañoUn espacio en tu día para el cuidado personal.Descubrir sales de baño"
+    }
+  ],
+  "photoPlacements": 10,
+  "homeSections": 11,
+  "scope": "Compiled HTML; not a browser interaction or visual audit."
+}

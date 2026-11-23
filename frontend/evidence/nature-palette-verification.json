@@ -1,0 +1,48 @@
+[
+  {
+    "command": "npm run format:check",
+    "code": 0,
+    "start": "2026-10-18T16:21:51.103Z",
+    "end": "2026-10-18T16:21:56.858Z"
+  },
+  {
+    "command": "npm run lint --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:21:56.861Z",
+    "end": "2026-10-18T16:22:02.025Z"
+  },
+  {
+    "command": "npm run typecheck --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:22:02.025Z",
+    "end": "2026-10-18T16:22:09.933Z"
+  },
+  {
+    "command": "npm test",
+    "code": 0,
+    "start": "2026-10-18T16:22:09.933Z",
+    "end": "2026-10-18T16:22:16.168Z"
+  },
+  {
+    "command": "npm run build --workspace=@dtc/storefront",
+    "code": 0,
+    "start": "2026-10-18T16:22:16.168Z",
+    "end": "2026-10-18T16:23:00.694Z"
+  },
+  {
+    "command": "npm run test:e2e -- --grep '390px'",
+    "code": 1,
+    "result": "listen EPERM 127.0.0.1:8000 before browser cases",
+    "log": "evidence/nature-palette-e2e.log"
+  },
+  {
+    "command": "npx prettier --check docs/PALETA_NATURAL.md",
+    "code": 0
+  },
+  {
+    "control": "ROADMAP prefix retained",
+    "code": 0,
+    "bytes": 66259,
+    "sha256": "d5b7de998f2fc29eb0b0dbf96020eff1efd6b5ad16363428708472cca66f2521"
+  }
+]

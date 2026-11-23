@@ -1,0 +1,23 @@
+{
+  "sections": [
+    "S02",
+    "S01",
+    "S03",
+    "S04",
+    "S05",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "S12"
+  ],
+  "photoPlacements": 10,
+  "researchHeading": "El origen es la ciencia.",
+  "researchText": "Bio Investigación El origen es la ciencia. Investigamos materiales orgánicos y exploramos nuevas formulaciones para conectar ciencia, circularidad y cuidado. I+D Circularidad Nuevas formulaciones Conoce Bio Investigación ↗",
+  "researchLinks": [
+    "/bio-investigacion"
+  ],
+  "researchFocusItems": 3,
+  "formerProcessComponentPreserved": true,
+  "scope": "Compiled HTML only; no browser interaction, visual or axe validation."
+}
