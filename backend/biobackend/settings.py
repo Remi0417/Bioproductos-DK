@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'contacto', #aplicacion propia
+    'colaboraciones', #aplicacion propia #2
     'rest_framework', #api tercera #1
     'corsheaders' # api tercera #2
 ]
@@ -145,6 +146,7 @@ CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS','http://localhost:8
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
+        'colaboraciones': '5/minute', #Maximo 5 consultas por minuto (antispam)
     },
 }
 #es el límite anti-spam del que hablamos, para el endpoint público.
