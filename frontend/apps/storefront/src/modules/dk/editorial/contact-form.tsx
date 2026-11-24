@@ -3,7 +3,11 @@
 import { useState, type FormEvent } from "react"
 import axios from "axios"
 import Swal from "sweetalert2"
-import { consultaSchema, enviarConsulta, temasConsulta } from "@lib/api/contacto"
+import {
+  consultaSchema,
+  enviarConsulta,
+  temasConsulta,
+} from "@lib/api/contacto"
 import { publicContact } from "../../../content/site"
 import styles from "./contact-page.module.css"
 

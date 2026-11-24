@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { publicContact } from "../../../content/site"
 import { ActionLink } from "@modules/dk/editorial/primitives"
+import CollaborationForm from "@modules/dk/editorial/collaboration-form"
 
 export const metadata: Metadata = {
   title: "Colabora con residuos orgánicos · BioProductos DK",
@@ -57,22 +58,9 @@ const researchSteps = [
   },
 ]
 
-const contactSubject = "Quiero explorar una colaboración con residuos orgánicos"
-const contactBody = [
-  "Hola, equipo BioProductos DK:",
-  "",
-  "Me gustaría consultar la posibilidad de colaborar con materiales orgánicos.",
-  "",
-  "Material que genero:",
-  "Origen / actividad:",
-  "Comuna:",
-  "Cantidad aproximada y frecuencia:",
-  "¿Puedo mantenerlo separado?:",
-  "Nombre y forma de contacto:",
-  "",
-  "Entiendo que la recepción debe ser evaluada y coordinada previamente.",
-].join("\n")
-const contactHref = `mailto:${publicContact.email}?subject=${encodeURIComponent(contactSubject)}&body=${encodeURIComponent(contactBody)}`
+// Los botones de la página llevan al formulario conectado a la API de Django
+// (antes abrían un mailto con una plantilla de correo).
+const formHref = "#formulario-colaboracion"
 
 export default function DonationsPage() {
   return (
@@ -101,8 +89,8 @@ export default function DonationsPage() {
             coordinación.
           </p>
           <div className="dk3-donation-hero-actions">
-            <a className="dk3-donation-button" href={contactHref}>
-              Quiero explorar una colaboración <span aria-hidden="true">↗</span>
+            <a className="dk3-donation-button" href={formHref}>
+              Quiero explorar una colaboración <span aria-hidden="true">↓</span>
             </a>
             <a className="dk3-donation-text-link" href="#recorrido">
               Conocer cómo comienza <span aria-hidden="true">↓</span>
@@ -348,8 +336,8 @@ export default function DonationsPage() {
             comprometer una cantidad ni llevarlo a un lugar: primero se conversa
             y DK confirma si existe una posibilidad concreta.
           </p>
-          <a className="dk3-donation-button" href={contactHref}>
-            Escribir a BioProductos DK <span aria-hidden="true">↗</span>
+          <a className="dk3-donation-button" href={formHref}>
+            Escribir a BioProductos DK <span aria-hidden="true">↓</span>
           </a>
         </div>
         <div className="dk3-participation-checklist">
@@ -385,11 +373,13 @@ export default function DonationsPage() {
             </li>
           </ul>
           <p className="dk3-checklist-note">
-            El enlace de correo incluye estos puntos como pauta editable; tú
-            decides qué información compartir.
+            El formulario de abajo te pide estos mismos puntos; tú decides
+            cuánto detalle compartir.
           </p>
         </div>
       </section>
+
+      <CollaborationForm />
 
       <section className="dk3-donation-faq" aria-labelledby="faq-title">
         <div className="dk3-faq-heading">
@@ -449,8 +439,8 @@ export default function DonationsPage() {
           Cuéntanos qué material tienes en mente. El primer paso es escucharnos.
         </p>
         <div className="dk3-donation-footer-actions">
-          <a className="dk3-donation-button" href={contactHref}>
-            Consultar una colaboración <span aria-hidden="true">↗</span>
+          <a className="dk3-donation-button" href={formHref}>
+            Consultar una colaboración <span aria-hidden="true">↑</span>
           </a>
           <ActionLink
             label="Conocer Bio Impacto"

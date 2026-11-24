@@ -1,0 +1,70 @@
+/*
+ * Formulario de colaboración (página /donaciones).
+ * Reutiliza los estilos y colores del formulario de contacto
+ * (contact-page.module.css); aquí solo va lo propio de este formulario.
+ */
+
+/* section.section: gana en especificidad a .page del módulo de contacto */
+section.section {
+  max-width: 920px;
+  margin: clamp(54px, 7vw, 92px) auto 0;
+  background: transparent;
+  overflow: visible;
+  scroll-margin-top: 110px;
+}
+
+.group {
+  margin: 0 0 1.4rem;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.group legend {
+  margin-bottom: 0.85rem;
+  padding: 0;
+  color: var(--contact-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.checks {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  color: var(--contact-ink);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.check input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0.1rem 0 0;
+  accent-color: #1b563c;
+  cursor: pointer;
+}
+
+.check input:focus-visible {
+  outline: 3px solid #c09043;
+  outline-offset: 3px;
+}
+
+.check i {
+  color: #a45c45;
+  font-style: normal;
+}
+
+:global(html[data-theme="dark"]) .check input {
+  accent-color: #9bc99a;
+}
