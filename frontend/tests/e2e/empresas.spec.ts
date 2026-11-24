@@ -19,7 +19,13 @@ for (const width of [375, 768, 1440]) {
     await expect(main.getByRole("article")).toHaveCount(3);
     await expect(
       main.getByRole("link", { name: /Conversemos sobre una alianza/ }),
-    ).toHaveAttribute("href", /^mailto:biocontacto@bioproductosdk\.com/);
+    ).toHaveAttribute("href", "#solicitud-empresa");
+    await expect(
+      main.getByRole("link", { name: /Conversar sobre distribución/ }),
+    ).toHaveAttribute("href", "?tipo=distribucion#solicitud-empresa");
+    await expect(
+      main.getByRole("heading", { name: "Cuéntanos sobre tu organización." }),
+    ).toBeVisible();
     await expect(
       main.getByRole("link", { name: /Conocer los productos/ }),
     ).toHaveAttribute("href", "/productos");

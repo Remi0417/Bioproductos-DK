@@ -1,12 +1,13 @@
 import Link from "next/link"
 import { publicContact } from "../../../content/site"
 import { HomePhoto } from "./primitives"
+import CompanyForm from "./company-form"
 import styles from "./companies-page.module.css"
 
-const emailLink = (subject: string, message: string) =>
-  `mailto:${publicContact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`
-
-const conversationBody = `Hola, equipo de BioProductos DK:\n\nQuisiera conversar sobre una posible colaboración comercial.\n\nOrganización o comercio:\nComuna / región:\nMe interesa: (punto de venta / distribución / abastecimiento / otra idea)\nNombre y cargo:\nTeléfono de contacto:\n\nCuéntennos brevemente qué tienen en mente.`
+// Los botones llevan al formulario conectado a la API de Django
+// (antes abrían un mailto). Con ?tipo=… el formulario llega preseleccionado.
+const formHref = "#solicitud-empresa"
+const formHrefFor = (tipo: string) => `?tipo=${tipo}${formHref}`
 
 const paths = [
   {
@@ -17,7 +18,7 @@ const paths = [
     detail:
       "Los puntos de venta se incorporarán a la guía pública una vez confirmados sus datos y autorizada su publicación.",
     action: "Quiero vender productos DK",
-    subject: "Interés comercial · punto de venta",
+    tipo: "punto_venta",
     accent: "retail",
   },
   {
@@ -28,7 +29,7 @@ const paths = [
     detail:
       "Las condiciones, el catálogo y el alcance se revisan caso a caso. Esta página no ofrece territorios ni condiciones preestablecidas.",
     action: "Conversar sobre distribución",
-    subject: "Interés comercial · distribución",
+    tipo: "distribucion",
     accent: "distribution",
   },
   {
@@ -39,7 +40,7 @@ const paths = [
     detail:
       "Los precios publicados en el catálogo corresponden al canal de venta directa. Las consultas de empresa se revisan de forma directa.",
     action: "Enviar una consulta de empresa",
-    subject: "Consulta comercial · empresa u organización",
+    tipo: "organizacion",
     accent: "organization",
   },
 ] as const
@@ -101,13 +102,7 @@ export default function CompaniesPage() {
               oportunidad de colaboración.
             </p>
             <div className={styles.heroActions}>
-              <a
-                className={styles.primaryAction}
-                href={emailLink(
-                  "Consulta comercial BioProductos DK",
-                  conversationBody,
-                )}
-              >
+              <a className={styles.primaryAction} href={formHref}>
                 Conversemos sobre una alianza <ArrowIcon />
               </a>
               <Link className={styles.secondaryAction} href="/productos">
@@ -196,10 +191,7 @@ export default function CompaniesPage() {
                 <p className={styles.pathText}>{path.text}</p>
                 <p className={styles.pathDetail}>{path.detail}</p>
               </div>
-              <a
-                className={styles.pathAction}
-                href={emailLink(path.subject, conversationBody)}
-              >
+              <a className={styles.pathAction} href={formHrefFor(path.tipo)}>
                 {path.action}
                 <ArrowIcon />
               </a>
@@ -273,12 +265,7 @@ export default function CompaniesPage() {
               Conversemos para conocer tu comercio y evaluar una posible
               colaboración.
             </p>
-            <a
-              href={emailLink(
-                "Interés comercial · punto de venta",
-                conversationBody,
-              )}
-            >
+            <a href={formHrefFor("punto_venta")}>
               Presentar mi comercio <ArrowIcon />
             </a>
           </div>
@@ -326,6 +313,8 @@ export default function CompaniesPage() {
         </ol>
       </section>
 
+      <CompanyForm />
+
       <section
         id="conversacion"
         className={styles.contactBand}
@@ -343,13 +332,7 @@ export default function CompaniesPage() {
             explorar con BioProductos DK.
           </p>
         </div>
-        <a
-          className={styles.contactAction}
-          href={emailLink(
-            "Consulta comercial BioProductos DK",
-            conversationBody,
-          )}
-        >
+        <a className={styles.contactAction} href={formHref}>
           Iniciar conversación comercial <ArrowIcon />
         </a>
         <a

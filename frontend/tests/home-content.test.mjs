@@ -97,6 +97,30 @@ test("Contacto es una página independiente y su formulario envía la consulta a
   assert.match(api, /api\.post\("\/api\/contacto\/consultas\/"/);
 });
 
+test("Empresas envía las consultas comerciales a la API de Django", () => {
+  const page = readFileSync(
+    "apps/storefront/src/modules/dk/editorial/companies-page.tsx",
+    "utf8",
+  );
+  const form = readFileSync(
+    "apps/storefront/src/modules/dk/editorial/company-form.tsx",
+    "utf8",
+  );
+  const api = readFileSync("apps/storefront/src/lib/api/empresas.ts", "utf8");
+  assert.match(page, /<CompanyForm \/>/);
+  assert.doesNotMatch(page, /mailto:\$\{publicContact\.email\}\?subject=/);
+  // Cada camino preselecciona su tipo (mismos valores que Django).
+  for (const tipo of ["punto_venta", "distribucion", "organizacion"]) {
+    assert.match(page, new RegExp(`tipo: "${tipo}"`));
+    assert.match(api, new RegExp(`value: "${tipo}"`));
+  }
+  assert.match(form, /id="solicitud-empresa"/);
+  assert.match(form, /solicitudEmpresaSchema\.safeParse\(/);
+  assert.match(form, /enviarSolicitudEmpresa\(/);
+  assert.doesNotMatch(form, /localStorage|sessionStorage/);
+  assert.match(api, /api\.post\("\/api\/empresas\/"/);
+});
+
 test("Donaciones envía las solicitudes de colaboración a la API de Django", () => {
   const page = readFileSync(
     "apps/storefront/src/app/(editorial)/donaciones/page.tsx",

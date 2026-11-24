@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contacto', #aplicacion propia
     'colaboraciones', #aplicacion propia #2
+    'empresas', #aplicaciom propia #3
     'rest_framework', #api tercera #1
     'corsheaders' # api tercera #2
 ]
@@ -147,6 +148,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'colaboraciones': '5/minute', #Maximo 5 consultas por minuto (antispam)
+        'empresas': '5/minute', #Maximo 5 minutos como limite.
     },
 }
 #es el límite anti-spam del que hablamos, para el endpoint público.
