@@ -174,9 +174,10 @@ for (const width of [320, 375, 390, 768, 1024, 1440, 1920]) {
     const mail = page.getByRole("link", { name: "Consultar por correo" });
     await expect(mail).toHaveAttribute(
       "href",
-      /^mailto:biocontacto@bioproductosdk\.com\?subject=/,
+      "mailto:biocontacto@bioproductosdk.com",
     );
-    await expect(page.locator("main form")).toHaveCount(0);
+    // Formulario de colaboración conectado a la API de Django.
+    await expect(page.locator("main form")).toHaveCount(1);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

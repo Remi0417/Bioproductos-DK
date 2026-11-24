@@ -16,7 +16,8 @@ for (const [command, args] of [
     `${command}: ${result.error ? "no disponible" : result.stdout.trim() || result.stderr.trim()}`,
   );
 }
-for (const port of [5432, 8000, 9000, 5173]) {
+// 5432 PostgreSQL · 8000 Next.js (storefront) · 8001 Django (API)
+for (const port of [5432, 8000, 8001]) {
   await new Promise((resolve) => {
     const socket = createConnection({ host: "127.0.0.1", port });
     socket.setTimeout(1000);

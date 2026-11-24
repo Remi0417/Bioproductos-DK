@@ -50,7 +50,7 @@ test("editorial route allowlist has real pages and cannot open commerce or API r
     assert.ok(!editorialPaths.includes(path));
 });
 
-test("Contacto es una página independiente y su formulario prepara un correo sin almacenar datos", () => {
+test("Contacto es una página independiente y su formulario envía la consulta a la API de Django", () => {
   assert.equal(pendingPages["/contacto"], undefined);
   const page = readFileSync(
     "apps/storefront/src/modules/dk/editorial/contact-page.tsx",
@@ -88,9 +88,36 @@ test("Contacto es una página independiente y su formulario prepara un correo si
   );
   assert.match(page, /href: "tel:\+56979771179"/);
   assert.match(page, /href: "tel:\+56979840382"/);
-  assert.match(form, /window\.location\.href = `mailto:/);
-  assert.match(form, /no se envía ni se guarda/);
-  assert.doesNotMatch(form, /fetch\(|localStorage|sessionStorage/);
+  // El formulario valida con Zod y envía a Django (backend/contacto) con Axios.
+  assert.match(form, /consultaSchema\.safeParse\(/);
+  assert.match(form, /enviarConsulta\(/);
+  assert.doesNotMatch(form, /window\.location\.href = `mailto:/);
+  assert.doesNotMatch(form, /localStorage|sessionStorage/);
+  const api = readFileSync("apps/storefront/src/lib/api/contacto.ts", "utf8");
+  assert.match(api, /api\.post\("\/api\/contacto\/consultas\/"/);
+});
+
+test("Donaciones envía las solicitudes de colaboración a la API de Django", () => {
+  const page = readFileSync(
+    "apps/storefront/src/app/(editorial)/donaciones/page.tsx",
+    "utf8",
+  );
+  const form = readFileSync(
+    "apps/storefront/src/modules/dk/editorial/collaboration-form.tsx",
+    "utf8",
+  );
+  const api = readFileSync(
+    "apps/storefront/src/lib/api/colaboraciones.ts",
+    "utf8",
+  );
+  assert.match(page, /<CollaborationForm \/>/);
+  assert.match(form, /id="formulario-colaboracion"/);
+  assert.match(form, /colaboracionSchema\.safeParse\(/);
+  assert.match(form, /enviarColaboracion\(/);
+  assert.doesNotMatch(form, /localStorage|sessionStorage/);
+  assert.match(api, /api\.post\("\/api\/colaboraciones\/"/);
+  // La aceptación de condiciones es obligatoria, igual que en el serializer de Django.
+  assert.match(api, /acepta_condiciones: z\.literal\(true/);
 });
 
 test("Donaciones comunica la investigación real sin presentar como activo un programa de recepción", () => {

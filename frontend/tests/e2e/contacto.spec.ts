@@ -39,7 +39,7 @@ for (const width of [375, 768, 1440]) {
       "rgb(255, 255, 255)",
     );
     await expect(
-      main.getByRole("button", { name: /Preparar correo/ }),
+      main.getByRole("button", { name: /Enviar consulta/ }),
     ).toHaveCSS("color", "rgb(255, 255, 255)");
     expect(
       await page.evaluate(
@@ -60,7 +60,7 @@ for (const width of [375, 768, 1440]) {
         "rgb(23, 34, 27)",
       );
       await expect(
-        main.getByRole("button", { name: /Preparar correo/ }),
+        main.getByRole("button", { name: /Enviar consulta/ }),
       ).toHaveCSS("color", "rgb(23, 34, 27)");
     }
   });

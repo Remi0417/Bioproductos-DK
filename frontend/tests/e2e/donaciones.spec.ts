@@ -24,11 +24,12 @@ for (const width of [375, 768, 1440]) {
     const contact = main.getByRole("link", {
       name: /Quiero explorar una colaboración/,
     });
-    await expect(contact).toHaveAttribute(
-      "href",
-      /^mailto:biocontacto@bioproductosdk\.com\?subject=/,
-    );
-    await expect(contact).toHaveAttribute("href", /body=/);
+    await expect(contact).toHaveAttribute("href", "#formulario-colaboracion");
+    await expect(
+      main.getByRole("heading", {
+        name: "Consulta una posible colaboración.",
+      }),
+    ).toBeVisible();
     const faq = main.getByText("¿Puedo llevar mis residuos directamente?");
     await faq.click();
     await expect(

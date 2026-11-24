@@ -1,25 +1,17 @@
-import { randomBytes } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 
-const files = [
-  ["apps/backend/.env.example", "apps/backend/.env"],
-  ["apps/storefront/.env.example", "apps/storefront/.env.local"],
-];
+// El backend ahora es Django (carpeta backend/ del repo), con su propio .env.
+// Aquí solo se prepara el .env.local del storefront (Next.js).
+const files = [["apps/storefront/.env.example", "apps/storefront/.env.local"]];
 for (const [template, target] of files) {
   if (existsSync(target)) {
     console.log(`${target}: conservado, ya existe.`);
     continue;
   }
-  let content = readFileSync(template, "utf8");
-  for (const key of ["JWT_SECRET", "COOKIE_SECRET"]) {
-    content = content.replace(
-      `${key}=`,
-      `${key}=${randomBytes(48).toString("hex")}`,
-    );
-  }
+  const content = readFileSync(template, "utf8");
   writeFileSync(target, content, { flag: "wx", mode: 0o600 });
-  console.log(`${target}: creado sin mostrar valores.`);
+  console.log(`${target}: creado a partir de ${template}.`);
 }
 console.log(
-  "Vista previa disponible. Configura DATABASE_URL local antes de iniciar Medusa.",
+  "Revisa NEXT_PUBLIC_API_URL en apps/storefront/.env.local: debe apuntar a la API de Django (por defecto http://127.0.0.1:8001).",
 );
