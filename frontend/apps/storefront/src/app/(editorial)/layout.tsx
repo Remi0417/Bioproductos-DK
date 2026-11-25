@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { SiteFooter, SiteHeader } from "@modules/dk/editorial/site-layout"
+import TiendaOrderWatcher from "@modules/dk/editorial/tienda-order-watcher"
 import "@fontsource-variable/manrope"
 import "./editorial.css"
 
@@ -30,6 +31,8 @@ export default function EditorialLayout({ children }: { children: ReactNode }) {
       <SiteHeader />
       {children}
       <SiteFooter />
+      {/* Vacía el carrito al volver de Shopify si la compra se completó. */}
+      <TiendaOrderWatcher />
     </div>
   )
 }

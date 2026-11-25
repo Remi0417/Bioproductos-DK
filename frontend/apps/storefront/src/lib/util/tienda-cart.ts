@@ -8,6 +8,9 @@ export const TIENDA_CART_STORAGE_KEY = "dk-tienda-cart-v1"
 /** Resumen listo para mostrar en el carrito del encabezado (header-cart-popover). */
 export const TIENDA_SUMMARY_STORAGE_KEY = "dk-tienda-cart-resumen-v1"
 
+/** Evento que avisa a /productos que la compra en Shopify se completó. */
+export const TIENDA_ORDER_COMPLETED_EVENT = "dk-tienda-compra-completada"
+
 /** Id del último carrito enviado a Shopify, para saber al volver si se compró. */
 export const TIENDA_PENDING_CHECKOUT_KEY = "dk-tienda-checkout-pendiente-v1"
 

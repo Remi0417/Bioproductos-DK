@@ -24,7 +24,6 @@ import {
   type DemoCartEntry,
 } from "../../../lib/util/demo-cart"
 import {
-  carritoCompletado,
   crearCheckout,
   MAX_UNIDADES_POR_LINEA,
   obtenerProductos,
@@ -32,11 +31,10 @@ import {
   type TiendaProducto,
 } from "@lib/api/tienda"
 import {
-  clearPendingCheckout,
   clearTiendaSummary,
-  readPendingCheckout,
   savePendingCheckout,
   TIENDA_CART_STORAGE_KEY,
+  TIENDA_ORDER_COMPLETED_EVENT,
   writeTiendaSummary,
 } from "../../../lib/util/tienda-cart"
 import { HomePhoto } from "./primitives"
@@ -230,45 +228,25 @@ export default function ProductsPage() {
     }
   }, [])
 
-  // 4. Al volver desde Shopify: si el carrito enviado ya es un pedido, vaciarlo.
-  //    "pageshow" cubre también el botón Atrás (página restaurada desde caché).
+  // 4. Al volver desde Shopify: el vigilante (tienda-order-watcher, presente en
+  //    todas las páginas) avisa cuando la compra se completó; aquí vaciamos el
+  //    carrito en pantalla. "pageshow" reactiva el botón de pago tras usar Atrás.
   useEffect(() => {
-    if (!isStore || !cartReady) return
-    let active = true
-
-    async function checkPendingOrder() {
-      setPaying(false)
-      const carritoId = readPendingCheckout()
-      if (!carritoId) return
-      try {
-        if (!(await carritoCompletado(carritoId)) || !active) return
-      } catch {
-        return // Sin respuesta de Django: se vuelve a revisar en la próxima visita.
-      }
-      clearPendingCheckout()
+    function onOrderCompleted() {
       setCart([])
       setIsSelectionOpen(false)
       setNotice("Tu compra se completó. Vaciamos el carrito.")
-      await Swal.fire({
-        ...swalColores,
-        icon: "success",
-        title: "¡Gracias por tu compra!",
-        text: "Tu pedido quedó registrado en BioProductos DK. Vaciamos tu carrito para que puedas seguir explorando.",
-        confirmButtonText: "Seguir explorando",
-      })
     }
-
-    function onPageShow(event: PageTransitionEvent) {
-      if (event.persisted) void checkPendingOrder()
+    function onPageShow() {
+      setPaying(false)
     }
-
-    void checkPendingOrder()
+    window.addEventListener(TIENDA_ORDER_COMPLETED_EVENT, onOrderCompleted)
     window.addEventListener("pageshow", onPageShow)
     return () => {
-      active = false
+      window.removeEventListener(TIENDA_ORDER_COMPLETED_EVENT, onOrderCompleted)
       window.removeEventListener("pageshow", onPageShow)
     }
-  }, [isStore, cartReady])
+  }, [])
 
   // 2. Recuperar el carrito guardado del modo que corresponda.
   useEffect(() => {
