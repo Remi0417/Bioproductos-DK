@@ -8,6 +8,51 @@ export const TIENDA_CART_STORAGE_KEY = "dk-tienda-cart-v1"
 /** Resumen listo para mostrar en el carrito del encabezado (header-cart-popover). */
 export const TIENDA_SUMMARY_STORAGE_KEY = "dk-tienda-cart-resumen-v1"
 
+/** Id del último carrito enviado a Shopify, para saber al volver si se compró. */
+export const TIENDA_PENDING_CHECKOUT_KEY = "dk-tienda-checkout-pendiente-v1"
+
+// Shopify también "olvida" un carrito sin pagar a los ~10 días; para no confundir
+// eso con una compra, solo se revisan carritos enviados hace menos de 7 días.
+const PENDING_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
+
+export function savePendingCheckout(carritoId: string) {
+  try {
+    window.localStorage.setItem(
+      TIENDA_PENDING_CHECKOUT_KEY,
+      JSON.stringify({ id: carritoId, fecha: Date.now() }),
+    )
+  } catch {
+    // Sin almacenamiento: el carrito no se vaciará solo, pero la compra funciona.
+  }
+}
+
+export function readPendingCheckout(): string | null {
+  try {
+    const serialized = window.localStorage.getItem(TIENDA_PENDING_CHECKOUT_KEY)
+    if (!serialized) return null
+    const value = JSON.parse(serialized) as { id?: unknown; fecha?: unknown }
+    const fresh =
+      typeof value.fecha === "number" &&
+      Date.now() - value.fecha < PENDING_MAX_AGE_MS
+    if (typeof value.id !== "string" || !fresh) {
+      clearPendingCheckout()
+      return null
+    }
+    return value.id
+  } catch {
+    clearPendingCheckout()
+    return null
+  }
+}
+
+export function clearPendingCheckout() {
+  try {
+    window.localStorage.removeItem(TIENDA_PENDING_CHECKOUT_KEY)
+  } catch {
+    // Nada que limpiar.
+  }
+}
+
 export type TiendaCartSummaryItem = {
   id: string
   title: string

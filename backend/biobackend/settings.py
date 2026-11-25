@@ -150,7 +150,8 @@ REST_FRAMEWORK = {
         'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'colaboraciones': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'empresas': '5/minute', #Maximo 5 minutos como limite.
-        'checkout': '10/minute', #Maximo 10 minutos por pedido.
+        'checkout': '10/minute', #Maximo 10 pedidos por minuto.
+        'carrito': '30/minute', #Consultas del estado del carrito (al volver de Shopify).
     },
 }
 #es el límite anti-spam del que hablamos, para el endpoint público.

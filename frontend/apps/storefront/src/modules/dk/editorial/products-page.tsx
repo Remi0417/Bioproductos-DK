@@ -24,6 +24,7 @@ import {
   type DemoCartEntry,
 } from "../../../lib/util/demo-cart"
 import {
+  carritoCompletado,
   crearCheckout,
   MAX_UNIDADES_POR_LINEA,
   obtenerProductos,
@@ -31,7 +32,10 @@ import {
   type TiendaProducto,
 } from "@lib/api/tienda"
 import {
+  clearPendingCheckout,
   clearTiendaSummary,
+  readPendingCheckout,
+  savePendingCheckout,
   TIENDA_CART_STORAGE_KEY,
   writeTiendaSummary,
 } from "../../../lib/util/tienda-cart"
@@ -225,6 +229,46 @@ export default function ProductsPage() {
       active = false
     }
   }, [])
+
+  // 4. Al volver desde Shopify: si el carrito enviado ya es un pedido, vaciarlo.
+  //    "pageshow" cubre también el botón Atrás (página restaurada desde caché).
+  useEffect(() => {
+    if (!isStore || !cartReady) return
+    let active = true
+
+    async function checkPendingOrder() {
+      setPaying(false)
+      const carritoId = readPendingCheckout()
+      if (!carritoId) return
+      try {
+        if (!(await carritoCompletado(carritoId)) || !active) return
+      } catch {
+        return // Sin respuesta de Django: se vuelve a revisar en la próxima visita.
+      }
+      clearPendingCheckout()
+      setCart([])
+      setIsSelectionOpen(false)
+      setNotice("Tu compra se completó. Vaciamos el carrito.")
+      await Swal.fire({
+        ...swalColores,
+        icon: "success",
+        title: "¡Gracias por tu compra!",
+        text: "Tu pedido quedó registrado en BioProductos DK. Vaciamos tu carrito para que puedas seguir explorando.",
+        confirmButtonText: "Seguir explorando",
+      })
+    }
+
+    function onPageShow(event: PageTransitionEvent) {
+      if (event.persisted) void checkPendingOrder()
+    }
+
+    void checkPendingOrder()
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      active = false
+      window.removeEventListener("pageshow", onPageShow)
+    }
+  }, [isStore, cartReady])
 
   // 2. Recuperar el carrito guardado del modo que corresponda.
   useEffect(() => {
@@ -420,9 +464,11 @@ export default function ProductsPage() {
 
     setPaying(true)
     try {
-      const checkoutUrl = await crearCheckout(lineas)
+      const { url, carritoId } = await crearCheckout(lineas)
+      // Al volver al sitio se consulta este carrito: si ya es un pedido, se vacía.
+      if (carritoId) savePendingCheckout(carritoId)
       setNotice("Te estamos llevando al pago seguro de Shopify.")
-      window.location.assign(checkoutUrl)
+      window.location.assign(url)
     } catch (error) {
       let mensaje =
         "No pudimos iniciar el pago. Inténtalo nuevamente en unos minutos."

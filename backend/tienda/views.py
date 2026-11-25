@@ -1,3 +1,5 @@
+import re
+
 from django.core.cache import cache
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -102,7 +104,7 @@ class ProductosView(APIView):
 CREAR_CARRITO = """
 mutation CrearCarrito($lineas: [CartLineInput!]!) @inContext(country: CL, language: ES) {
   cartCreate(input: { lines: $lineas, buyerIdentity: { countryCode: CL } }) {
-    cart { checkoutUrl }
+    cart { id checkoutUrl }
     userErrors { field message }
   }
 }
@@ -138,7 +140,47 @@ class CheckoutView(APIView):
                 {'detail': 'Algunos productos del carrito ya no están disponibles.'},
                 status=400,
             )
-        return Response({'checkout_url': resultado['cart']['checkoutUrl']}, status=201)
+        return Response(
+            {
+                'checkout_url': resultado['cart']['checkoutUrl'],
+                # React lo guarda para saber, al volver, si la compra se completó.
+                'carrito_id': resultado['cart']['id'],
+            },
+            status=201,
+        )
+
+
+# Consulta GraphQL: Shopify deja de devolver un carrito (null) cuando ya se
+# convirtió en pedido (o cuando expiró). Así sabemos si la compra terminó.
+CONSULTAR_CARRITO = """
+query EstadoCarrito($id: ID!) {
+  cart(id: $id) { id }
+}
+"""
+
+# Formato de los IDs de carrito de Shopify: gid://shopify/Cart/<token>?key=<clave>
+CARRITO_ID = re.compile(r'^gid://shopify/Cart/[A-Za-z0-9-]+(\?key=[A-Za-z0-9]+)?$')
+
+
+class EstadoCarritoView(APIView):
+    """GET público: ¿el carrito enviado a Shopify ya se convirtió en pedido?"""
+
+    permission_classes = [permissions.AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'carrito'
+
+    def get(self, request):
+        carrito_id = request.query_params.get('id', '')
+        if not CARRITO_ID.match(carrito_id):
+            return Response({'detail': 'Carrito no válido.'}, status=400)
+        try:
+            datos = consultar(CONSULTAR_CARRITO, {'id': carrito_id})
+        except ShopifyError:
+            return Response(
+                {'detail': 'No pudimos consultar el carrito en este momento.'},
+                status=503,
+            )
+        return Response({'completado': datos['cart'] is None})
 
 #Comentarios
 #1. mutation: en GraphQL, "query" es leer y "mutation" es crear o modificar. Aquí creamos un carrito.
