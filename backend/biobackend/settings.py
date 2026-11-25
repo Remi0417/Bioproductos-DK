@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contacto', #aplicacion propia
     'colaboraciones', #aplicacion propia #2
     'empresas', #aplicaciom propia #3
+    'tienda', #aplicacion propia #4 (conexion con Shopify)
     'rest_framework', #api tercera #1
     'corsheaders' # api tercera #2
 ]
@@ -149,6 +150,15 @@ REST_FRAMEWORK = {
         'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'colaboraciones': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'empresas': '5/minute', #Maximo 5 minutos como limite.
+        'checkout': '10/minute', #Maximo 10 minutos por pedido.
     },
 }
 #es el límite anti-spam del que hablamos, para el endpoint público.
+
+#Shopify (Storefront API). Los tokens viven en el .env, nunca en el codigo.
+SHOPIFY_STORE_DOMAIN = os.environ.get('SHOPIFY_STORE_DOMAIN','')
+SHOPIFY_STOREFRONT_PRIVATE_TOKEN = os.environ.get('SHOPIFY_STOREFRONT_PRIVATE_TOKEN','')
+SHOPIFY_API_VERSION = os.environ.get('SHOPIFY_API_VERSION', '2026-10')
+
+#Comentario: Se uso .get(..., '') en lugar de os.environ[...]
+# para que, si a un compañero le falta Shopify en su .env, el resto del proyecto (contacto, donaciones, empresas) siga funcionando

@@ -1,0 +1,11 @@
+Handle,Title,Body (HTML),Vendor,Type,Tags,Published,Option1 Name,Option1 Value,Variant SKU,Variant Inventory Tracker,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Requires Shipping,Variant Taxable,Status
+detergente-citrico,Detergente líquido concentrado · aroma cítrico,"<p>Detergente líquido concentrado para el lavado cotidiano de tu ropa, con aroma cítrico. Formato 1 litro.</p>",BioProductos DK,Cuidado del hogar,"hogar, detergente",TRUE,Title,Default Title,DK-DET-CIT,,deny,manual,6990,TRUE,TRUE,active
+detergente-eucalipto,Detergente líquido concentrado · aroma eucalipto,"<p>Detergente líquido concentrado para el lavado de ropa, con aroma a eucalipto. Formato 1 litro.</p>",BioProductos DK,Cuidado del hogar,"hogar, detergente",TRUE,Title,Default Title,DK-DET-EUC,,deny,manual,6990,TRUE,TRUE,active
+shampoo-solido,Shampoo sólido BIO-Renua,"<p>Shampoo en formato sólido de la línea BIO-Renua, por BioProductos DK. Elige la opción para tu tipo de cabello.</p>",BioProductos DK,Cuidado personal,"cuidado personal, cosmética sólida, bio-renua",TRUE,Tipo de cabello,Cabello seco,DK-SHA-SECO,,deny,manual,5490,TRUE,TRUE,active
+shampoo-solido,,,,,,,,Cabello graso,DK-SHA-GRASO,,deny,manual,5490,TRUE,TRUE,
+shampoo-solido,,,,,,,,Cabello normal,DK-SHA-NORMAL,,deny,manual,5490,TRUE,TRUE,
+sales-de-bano,Sales de baño BIO-Renua,"<p>Sales de baño de la línea BIO-Renua, por BioProductos DK. Tres variedades: Aqua (liberación y suavidad), Ignis (enciende tu poder interior) y Terra (vuelve a tu esencia).</p>",BioProductos DK,Cuidado personal,"cuidado personal, bio-renua",TRUE,Variedad,Aqua,DK-SAL-AQUA,,deny,manual,3990,TRUE,TRUE,active
+sales-de-bano,,,,,,,,Ignis,DK-SAL-IGNIS,,deny,manual,3990,TRUE,TRUE,
+sales-de-bano,,,,,,,,Terra,DK-SAL-TERRA,,deny,manual,3990,TRUE,TRUE,
+jabon,Jabón de cuidado personal,<p>Una alternativa de cuidado personal de la colección DK.</p>,BioProductos DK,Cuidado personal,cuidado personal,TRUE,Title,Default Title,DK-JAB,,deny,manual,3490,TRUE,TRUE,active
+acondicionador,Acondicionador capilar,<p>Una opción de cuidado capilar para sumar a tu rutina.</p>,BioProductos DK,Cuidado personal,cuidado personal,TRUE,Title,Default Title,DK-ACO,,deny,manual,5990,TRUE,TRUE,active

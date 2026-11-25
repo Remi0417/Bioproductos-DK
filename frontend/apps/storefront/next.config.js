@@ -45,8 +45,7 @@ const nextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
           {
             key: "Content-Security-Policy",
-            value:
-              `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mcp.figma.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://localhost:9000; font-src 'self'; connect-src 'self' ${DJANGO_API_ORIGIN} https://mcp.figma.com http://localhost:9000 ws://localhost:8000 ws://127.0.0.1:8000; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'`,
+            value: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mcp.figma.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://cdn.shopify.com; font-src 'self'; connect-src 'self' ${DJANGO_API_ORIGIN} https://mcp.figma.com http://localhost:9000 ws://localhost:8000 ws://127.0.0.1:8000; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'`,
           },
         ],
       },

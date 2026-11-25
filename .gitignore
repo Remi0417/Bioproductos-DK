@@ -229,3 +229,6 @@ node_modules/
 # La plantilla de Python ignora "lib/", pero en el frontend (Next.js)
 # src/lib tiene código propio (API, config, utilidades). Se vuelve a incluir.
 !frontend/**/src/lib/
+
+# Fotos de productos para subir a Shopify (copias del banco de imágenes de las dueñas)
+shopify/imagenes/

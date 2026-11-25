@@ -125,10 +125,12 @@ export function setDemoCartQuantity(
 export function getDemoCartLines(
   entries: DemoCartEntry[],
   catalog: readonly DemoProduct[],
+  // En modo tienda los precios vienen de Shopify; si no, se usan los de demostración.
+  prices: Readonly<Record<string, number>> = demoPrices,
 ): DemoCartLine[] {
   return normalizeDemoCart(entries, catalog).flatMap((entry) => {
     const product = catalog.find((item) => item.id === entry.productId)
-    const unitPrice = demoPrices[entry.productId]
+    const unitPrice = prices[entry.productId]
     if (!product || !Number.isSafeInteger(unitPrice)) return []
     return [
       {

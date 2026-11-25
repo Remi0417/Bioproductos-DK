@@ -3,6 +3,8 @@
 import { ShoppingCart } from "@medusajs/icons"
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Link from "next/link"
+import axios from "axios"
+import Swal from "sweetalert2"
 import {
   productCatalog,
   type CatalogProduct,
@@ -13,6 +15,7 @@ import {
   DEMO_CART_EVENT,
   DEMO_CART_LIMIT,
   DEMO_CART_STORAGE_KEY,
+  demoCartKey,
   demoPrices,
   formatDemoPrice,
   getDemoCartLines,
@@ -20,6 +23,18 @@ import {
   setDemoCartQuantity,
   type DemoCartEntry,
 } from "../../../lib/util/demo-cart"
+import {
+  crearCheckout,
+  MAX_UNIDADES_POR_LINEA,
+  obtenerProductos,
+  type TiendaImagen,
+  type TiendaProducto,
+} from "@lib/api/tienda"
+import {
+  clearTiendaSummary,
+  TIENDA_CART_STORAGE_KEY,
+  writeTiendaSummary,
+} from "../../../lib/util/tienda-cart"
 import { HomePhoto } from "./primitives"
 import styles from "./products-page.module.css"
 
@@ -30,9 +45,104 @@ type AddedToast = {
   sequence: number
 }
 
+/**
+ * "tienda": catálogo y precios reales desde Shopify (vía Django) y pago en Shopify.
+ * "demo": si Django/Shopify no responden, se usa la simulación local original.
+ */
+type StoreMode = "cargando" | "tienda" | "demo"
+
+type StoreCatalog = {
+  products: readonly CatalogProduct[]
+  prices: Readonly<Record<string, number>>
+  images: Readonly<Record<string, TiendaImagen | null>>
+  // Claves con demoCartKey(producto, variante)
+  variantImages: Readonly<Record<string, TiendaImagen | null>>
+  variantIds: Readonly<Record<string, string>>
+}
+
+const localCatalog: StoreCatalog = {
+  products: productCatalog,
+  prices: demoPrices,
+  images: {},
+  variantImages: {},
+  variantIds: {},
+}
+
+const swalColores = { confirmButtonColor: "#1b563c" } // --dk2-forest
+
 const filters: Filter[] = ["Todo", "Hogar", "Cuidado personal"]
 
-function ProductArtwork({ product }: { product: CatalogProduct }) {
+function accentFor(handle: string): CatalogProduct["accent"] {
+  if (handle.includes("citric")) return "citrus"
+  if (handle.includes("eucalipto")) return "eucalyptus"
+  if (handle.includes("shampoo")) return "hair"
+  if (handle.includes("sales")) return "bath"
+  if (handle.includes("jabon")) return "soap"
+  return "conditioner"
+}
+
+/** Convierte los productos de Shopify al formato que ya usa el diseño de Byron. */
+function catalogFromShopify(items: TiendaProducto[]): StoreCatalog {
+  const products: CatalogProduct[] = []
+  const prices: Record<string, number> = {}
+  const images: Record<string, TiendaImagen | null> = {}
+  const variantImages: Record<string, TiendaImagen | null> = {}
+  const variantIds: Record<string, string> = {}
+
+  for (const item of items) {
+    const available = item.variantes.filter((variante) => variante.disponible)
+    if (!item.disponible || !available.length) continue
+    // Shopify llama "Default Title" a la única variante de un producto sin opciones.
+    const hasOptions = !(
+      available.length === 1 && available[0].titulo === "Default Title"
+    )
+    const description = item.descripcion.trim()
+    products.push({
+      id: item.handle,
+      name: item.titulo,
+      category:
+        item.tipo === "Cuidado del hogar" ? "Hogar" : "Cuidado personal",
+      description: /[.!?]$/.test(description) ? description : `${description}.`,
+      variants: hasOptions
+        ? available.map((variante) => variante.titulo)
+        : undefined,
+      accent: accentFor(item.handle),
+    })
+    prices[item.handle] = Math.min(
+      ...available.map((variante) => variante.precio),
+    )
+    images[item.handle] = item.imagen
+    for (const variante of available) {
+      const key = demoCartKey(
+        item.handle,
+        hasOptions ? variante.titulo : undefined,
+      )
+      variantIds[key] = variante.id
+      variantImages[key] = variante.imagen
+    }
+  }
+  return { products, prices, images, variantImages, variantIds }
+}
+
+function ProductArtwork({
+  product,
+  image,
+}: {
+  product: CatalogProduct
+  image?: TiendaImagen | null
+}) {
+  if (image) {
+    return (
+      // Imagen servida por el CDN de Shopify (las optimiza Shopify, no Next).
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        className={`dk2-photo ${styles.productImage}`}
+        src={image.url}
+        alt={image.alt || product.name}
+        loading="lazy"
+      />
+    )
+  }
   if (product.media) {
     return (
       <HomePhoto
@@ -81,17 +191,50 @@ export default function ProductsPage() {
     id: string
     sequence: number
   } | null>(null)
+  const [mode, setMode] = useState<StoreMode>("cargando")
+  const [store, setStore] = useState<StoreCatalog>(localCatalog)
+  const [paying, setPaying] = useState(false)
   const feedbackSequence = useRef(0)
   const toastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const lastFocusedRef = useRef<HTMLElement | null>(null)
+  const isStore = mode === "tienda"
+  const cartStorageKey = isStore
+    ? TIENDA_CART_STORAGE_KEY
+    : DEMO_CART_STORAGE_KEY
+  const quantityLimit = isStore ? MAX_UNIDADES_POR_LINEA : DEMO_CART_LIMIT
 
+  // 1. Pedir el catálogo a Django (que lo trae de Shopify). Si falla, simulación local.
   useEffect(() => {
+    let active = true
+    obtenerProductos()
+      .then((items) => {
+        if (!active) return
+        const catalog = catalogFromShopify(items)
+        if (catalog.products.length) {
+          setStore(catalog)
+          setMode("tienda")
+        } else {
+          setMode("demo")
+        }
+      })
+      .catch(() => {
+        if (active) setMode("demo")
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  // 2. Recuperar el carrito guardado del modo que corresponda.
+  useEffect(() => {
+    if (mode === "cargando") return
+    if (!isStore) clearTiendaSummary()
     try {
       setCart(
         readDemoCart(
-          window.localStorage.getItem(DEMO_CART_STORAGE_KEY),
-          productCatalog,
+          window.localStorage.getItem(cartStorageKey),
+          store.products,
         ),
       )
     } catch {
@@ -99,22 +242,38 @@ export default function ProductsPage() {
     }
     setCartReady(true)
     function syncOtherTab(event: StorageEvent) {
-      if (event.key === DEMO_CART_STORAGE_KEY)
-        setCart(readDemoCart(event.newValue, productCatalog))
+      if (event.key === cartStorageKey)
+        setCart(readDemoCart(event.newValue, store.products))
     }
     window.addEventListener("storage", syncOtherTab)
     return () => window.removeEventListener("storage", syncOtherTab)
-  }, [])
+  }, [mode, isStore, cartStorageKey, store])
 
+  const cartLines = useMemo(
+    () => getDemoCartLines(cart, store.products, store.prices),
+    [cart, store],
+  )
+
+  // 3. Guardar el carrito y avisar al carrito del encabezado.
   useEffect(() => {
     if (!cartReady) return
     try {
-      window.localStorage.setItem(DEMO_CART_STORAGE_KEY, JSON.stringify(cart))
+      window.localStorage.setItem(cartStorageKey, JSON.stringify(cart))
     } catch {
       // The shopping simulation remains usable in restricted storage contexts.
     }
+    if (isStore) {
+      writeTiendaSummary(
+        cartLines.map((line) => ({
+          id: line.key,
+          title: `${line.product.name}${line.variant ? ` · ${line.variant}` : ""}`,
+          quantity: line.quantity,
+          total: line.total,
+        })),
+      )
+    }
     window.dispatchEvent(new Event(DEMO_CART_EVENT))
-  }, [cart, cartReady])
+  }, [cart, cartReady, cartStorageKey, isStore, cartLines])
 
   useEffect(() => {
     function openDemoCart() {
@@ -173,7 +332,7 @@ export default function ProductsPage() {
 
   const visibleProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("es-CL")
-    return productCatalog.filter((product) => {
+    return store.products.filter((product) => {
       const matchesFilter = filter === "Todo" || product.category === filter
       const searchable =
         `${product.name} ${product.category} ${product.description} ${product.variants?.join(" ") ?? ""}`.toLocaleLowerCase(
@@ -184,12 +343,8 @@ export default function ProductsPage() {
         (!normalizedQuery || searchable.includes(normalizedQuery))
       )
     })
-  }, [filter, query])
+  }, [filter, query, store])
 
-  const cartLines = useMemo(
-    () => getDemoCartLines(cart, productCatalog),
-    [cart],
-  )
   const cartCount = cartLines.reduce((sum, line) => sum + line.quantity, 0)
   const cartTotal = cartLines.reduce((sum, line) => sum + line.total, 0)
   const categoryLabels: Record<Filter, string> = {
@@ -206,7 +361,7 @@ export default function ProductsPage() {
       return
     }
     setCart((current) =>
-      addDemoCartEntry(current, product.id, productCatalog, variant, quantity),
+      addDemoCartEntry(current, product.id, store.products, variant, quantity),
     )
     feedbackSequence.current += 1
     const sequence = feedbackSequence.current
@@ -215,17 +370,91 @@ export default function ProductsPage() {
     if (toastTimeout.current) clearTimeout(toastTimeout.current)
     toastTimeout.current = setTimeout(() => setAddedToast(null), 3200)
     setNotice(
-      `${quantity} ${quantity === 1 ? "unidad" : "unidades"} de ${product.name} se ${quantity === 1 ? "agregó" : "agregaron"} al carrito de demostración.`,
+      `${quantity} ${quantity === 1 ? "unidad" : "unidades"} de ${product.name} se ${quantity === 1 ? "agregó" : "agregaron"} al carrito${isStore ? "" : " de demostración"}.`,
     )
   }
 
   function changeQuantity(key: string, quantity: number) {
     setCart((current) =>
-      setDemoCartQuantity(current, key, quantity, productCatalog),
+      setDemoCartQuantity(current, key, quantity, store.products),
     )
   }
 
+  /** Foto de la variante elegida (si tiene), o la portada del producto. */
+  function imageFor(product: CatalogProduct, variant?: string) {
+    return (
+      store.variantImages[demoCartKey(product.id, variant)] ??
+      store.images[product.id] ??
+      null
+    )
+  }
+
+  /** Modo tienda: Django crea el carrito en Shopify y redirigimos al pago. */
+  async function goToShopifyCheckout() {
+    if (cartLines.some((line) => line.quantity > MAX_UNIDADES_POR_LINEA)) {
+      await Swal.fire({
+        ...swalColores,
+        icon: "warning",
+        title: "Revisa tu carrito",
+        text: `Puedes comprar hasta ${MAX_UNIDADES_POR_LINEA} unidades de cada producto por pedido.`,
+        confirmButtonText: "Entendido",
+      })
+      return
+    }
+    const lineas = cartLines.flatMap((line) => {
+      const varianteId = store.variantIds[line.key]
+      return varianteId
+        ? [{ variante_id: varianteId, cantidad: line.quantity }]
+        : []
+    })
+    if (lineas.length !== cartLines.length || !lineas.length) {
+      await Swal.fire({
+        ...swalColores,
+        icon: "warning",
+        title: "Revisa tu carrito",
+        text: "Algunos productos ya no están disponibles. Quítalos e inténtalo de nuevo.",
+        confirmButtonText: "Entendido",
+      })
+      return
+    }
+
+    setPaying(true)
+    try {
+      const checkoutUrl = await crearCheckout(lineas)
+      setNotice("Te estamos llevando al pago seguro de Shopify.")
+      window.location.assign(checkoutUrl)
+    } catch (error) {
+      let mensaje =
+        "No pudimos iniciar el pago. Inténtalo nuevamente en unos minutos."
+      if (axios.isAxiosError(error)) {
+        const detail = (
+          error.response?.data as { detail?: unknown } | undefined
+        )?.detail
+        if (error.response?.status === 429) {
+          mensaje =
+            "Hiciste varios intentos seguidos. Espera un minuto e inténtalo otra vez."
+        } else if (typeof detail === "string") {
+          mensaje = detail
+        } else if (!error.response) {
+          mensaje = "No pudimos conectar con el servidor. Revisa tu conexión."
+        }
+      }
+      setPaying(false)
+      await Swal.fire({
+        ...swalColores,
+        icon: "error",
+        title: "No se pudo iniciar el pago",
+        text: mensaje,
+        confirmButtonText: "Cerrar",
+      })
+    }
+  }
+
   function startCheckout() {
+    if (isStore) {
+      void goToShopifyCheckout()
+      return
+    }
     setCartStep("checkout")
   }
 
@@ -275,8 +504,8 @@ export default function ProductsPage() {
             {filters.map((item) => {
               const count =
                 item === "Todo"
-                  ? productCatalog.length
-                  : productCatalog.filter(
+                  ? store.products.length
+                  : store.products.filter(
                       (product) => product.category === item,
                     ).length
               return (
@@ -318,13 +547,28 @@ export default function ProductsPage() {
           </p>
         </div>
 
-        <div className={styles.demoNotice}>
-          <span>SIMULACIÓN LOCAL</span>
-          <p>
-            Precios ficticios de demostración. No se procesan pagos, pedidos ni
-            despachos reales.
-          </p>
-        </div>
+        {mode === "cargando" ? (
+          <div className={styles.demoNotice} role="status">
+            <span>CATÁLOGO</span>
+            <p>Cargando productos…</p>
+          </div>
+        ) : isStore ? (
+          <div className={styles.demoNotice}>
+            <span>TIENDA DE PRUEBA</span>
+            <p>
+              Catálogo y precios conectados a Shopify. El pago se realiza en el
+              checkout seguro de Shopify, en modo de prueba.
+            </p>
+          </div>
+        ) : (
+          <div className={styles.demoNotice}>
+            <span>SIMULACIÓN LOCAL</span>
+            <p>
+              Precios ficticios de demostración. No se procesan pagos, pedidos
+              ni despachos reales.
+            </p>
+          </div>
+        )}
 
         <div className={styles.toolbar}>
           <label className={styles.search}>
@@ -357,140 +601,148 @@ export default function ProductsPage() {
         </p>
 
         <div className={styles.grid}>
-          {visibleProducts.map((product, index) => (
-            <article
-              className={styles.card}
-              key={product.id}
-              style={{ "--card-order": index } as CSSProperties}
-            >
-              <div className={styles.cardVisual}>
-                <ProductArtwork product={product} />
-                <span className={styles.categoryTag}>{product.category}</span>
-                <span className={styles.cardIndex}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className={styles.cardBody}>
-                {product.imageCaption && (
-                  <p className={styles.imageCaption}>{product.imageCaption}</p>
-                )}
-                <h3>{product.name}</h3>
-                <p className={styles.productDescription}>
-                  {product.description}
-                </p>
-                <div className={styles.productPrice}>
-                  <span>Precio de demostración</span>
-                  <strong>{formatDemoPrice(demoPrices[product.id])}</strong>
-                </div>
-                {product.variants && (
-                  <fieldset className={styles.variantGroup}>
-                    <legend>
-                      {product.id === "solid-shampoo"
-                        ? "Elige tu tipo de cabello"
-                        : "Elige una variedad"}
-                    </legend>
-                    <div className={styles.variantOptions}>
-                      {product.variants.map((variant) => (
-                        <button
-                          key={variant}
-                          type="button"
-                          className={
-                            variants[product.id] === variant
-                              ? styles.variantSelected
-                              : styles.variant
-                          }
-                          aria-pressed={variants[product.id] === variant}
-                          onClick={() =>
-                            setVariants((current) => ({
-                              ...current,
-                              [product.id]: variant,
-                            }))
-                          }
-                        >
-                          {variant}
-                        </button>
-                      ))}
-                    </div>
-                    {product.variantNote && (
-                      <small>{product.variantNote}</small>
-                    )}
-                  </fieldset>
-                )}
-                <div
-                  className={styles.productQuantity}
-                  role="group"
-                  aria-label={`Cantidad de ${product.name}`}
-                >
-                  <span>Cantidad</span>
-                  <div className={styles.quantityStepper}>
-                    <button
-                      type="button"
-                      aria-label={`Disminuir cantidad de ${product.name}`}
-                      disabled={(quantities[product.id] ?? 1) <= 1}
-                      onClick={() =>
-                        setQuantities((current) => ({
-                          ...current,
-                          [product.id]: Math.max(
-                            1,
-                            (current[product.id] ?? 1) - 1,
-                          ),
-                        }))
-                      }
-                    >
-                      <span aria-hidden="true">−</span>
-                    </button>
-                    <output aria-label={`Unidades de ${product.name}`}>
-                      {quantities[product.id] ?? 1}
-                    </output>
-                    <button
-                      type="button"
-                      aria-label={`Aumentar cantidad de ${product.name}`}
-                      disabled={
-                        (quantities[product.id] ?? 1) >= DEMO_CART_LIMIT
-                      }
-                      onClick={() =>
-                        setQuantities((current) => ({
-                          ...current,
-                          [product.id]: Math.min(
-                            DEMO_CART_LIMIT,
-                            (current[product.id] ?? 1) + 1,
-                          ),
-                        }))
-                      }
-                    >
-                      <span aria-hidden="true">+</span>
-                    </button>
-                  </div>
-                </div>
-                <button
-                  className={`${styles.addButton} ${addedProduct?.id === product.id ? styles.addButtonSuccess : ""}`}
-                  type="button"
-                  onClick={() => addToSelection(product)}
-                  disabled={Boolean(product.variants && !variants[product.id])}
-                >
-                  Agregar al carrito
-                  <span aria-hidden="true">
-                    <ShoppingCart
-                      key={
-                        addedProduct?.id === product.id
-                          ? addedProduct.sequence
-                          : "idle"
-                      }
-                      width={17}
-                      height={17}
-                    />
+          {mode !== "cargando" &&
+            visibleProducts.map((product, index) => (
+              <article
+                className={styles.card}
+                key={product.id}
+                style={{ "--card-order": index } as CSSProperties}
+              >
+                <div className={styles.cardVisual}>
+                  <ProductArtwork
+                    product={product}
+                    image={imageFor(product, variants[product.id])}
+                  />
+                  <span className={styles.categoryTag}>{product.category}</span>
+                  <span className={styles.cardIndex}>
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                </button>
-                {product.variants && !variants[product.id] && (
-                  <small className={styles.variantHint}>
-                    Elige una opción para continuar.
-                  </small>
-                )}
-              </div>
-            </article>
-          ))}
+                </div>
+                <div className={styles.cardBody}>
+                  {product.imageCaption && (
+                    <p className={styles.imageCaption}>
+                      {product.imageCaption}
+                    </p>
+                  )}
+                  <h3>{product.name}</h3>
+                  <p className={styles.productDescription}>
+                    {product.description}
+                  </p>
+                  <div className={styles.productPrice}>
+                    <span>{isStore ? "Precio" : "Precio de demostración"}</span>
+                    <strong>{formatDemoPrice(store.prices[product.id])}</strong>
+                  </div>
+                  {product.variants && (
+                    <fieldset className={styles.variantGroup}>
+                      <legend>
+                        {product.accent === "hair"
+                          ? "Elige tu tipo de cabello"
+                          : "Elige una variedad"}
+                      </legend>
+                      <div className={styles.variantOptions}>
+                        {product.variants.map((variant) => (
+                          <button
+                            key={variant}
+                            type="button"
+                            className={
+                              variants[product.id] === variant
+                                ? styles.variantSelected
+                                : styles.variant
+                            }
+                            aria-pressed={variants[product.id] === variant}
+                            onClick={() =>
+                              setVariants((current) => ({
+                                ...current,
+                                [product.id]: variant,
+                              }))
+                            }
+                          >
+                            {variant}
+                          </button>
+                        ))}
+                      </div>
+                      {product.variantNote && (
+                        <small>{product.variantNote}</small>
+                      )}
+                    </fieldset>
+                  )}
+                  <div
+                    className={styles.productQuantity}
+                    role="group"
+                    aria-label={`Cantidad de ${product.name}`}
+                  >
+                    <span>Cantidad</span>
+                    <div className={styles.quantityStepper}>
+                      <button
+                        type="button"
+                        aria-label={`Disminuir cantidad de ${product.name}`}
+                        disabled={(quantities[product.id] ?? 1) <= 1}
+                        onClick={() =>
+                          setQuantities((current) => ({
+                            ...current,
+                            [product.id]: Math.max(
+                              1,
+                              (current[product.id] ?? 1) - 1,
+                            ),
+                          }))
+                        }
+                      >
+                        <span aria-hidden="true">−</span>
+                      </button>
+                      <output aria-label={`Unidades de ${product.name}`}>
+                        {quantities[product.id] ?? 1}
+                      </output>
+                      <button
+                        type="button"
+                        aria-label={`Aumentar cantidad de ${product.name}`}
+                        disabled={
+                          (quantities[product.id] ?? 1) >= quantityLimit
+                        }
+                        onClick={() =>
+                          setQuantities((current) => ({
+                            ...current,
+                            [product.id]: Math.min(
+                              quantityLimit,
+                              (current[product.id] ?? 1) + 1,
+                            ),
+                          }))
+                        }
+                      >
+                        <span aria-hidden="true">+</span>
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    className={`${styles.addButton} ${addedProduct?.id === product.id ? styles.addButtonSuccess : ""}`}
+                    type="button"
+                    onClick={() => addToSelection(product)}
+                    disabled={Boolean(
+                      product.variants && !variants[product.id],
+                    )}
+                  >
+                    Agregar al carrito
+                    <span aria-hidden="true">
+                      <ShoppingCart
+                        key={
+                          addedProduct?.id === product.id
+                            ? addedProduct.sequence
+                            : "idle"
+                        }
+                        width={17}
+                        height={17}
+                      />
+                    </span>
+                  </button>
+                  {product.variants && !variants[product.id] && (
+                    <small className={styles.variantHint}>
+                      Elige una opción para continuar.
+                    </small>
+                  )}
+                </div>
+              </article>
+            ))}
         </div>
-        {visibleProducts.length === 0 && (
+        {mode !== "cargando" && visibleProducts.length === 0 && (
           <p className={styles.empty}>
             No encontramos productos con esa búsqueda. Prueba con otra palabra.
           </p>
@@ -518,7 +770,9 @@ export default function ProductsPage() {
         >
           <div className={styles.drawerHeader}>
             <div>
-              <p className={styles.sectionEyebrow}>BIOPRODUCTOS DK · DEMO</p>
+              <p className={styles.sectionEyebrow}>
+                BIOPRODUCTOS DK · {isStore ? "TIENDA" : "DEMO"}
+              </p>
               <h2 id="cart-title">
                 {cartStep === "checkout"
                   ? "Revisar pedido"
@@ -538,8 +792,9 @@ export default function ProductsPage() {
             </button>
           </div>
           <p id="cart-description" className={styles.drawerNote}>
-            Compra de demostración. Los importes son ficticios y solo sirven
-            para probar el recorrido de compra.
+            {isStore
+              ? "Precios en pesos chilenos desde Shopify. El despacho y el pago se completan en el checkout seguro de Shopify."
+              : "Compra de demostración. Los importes son ficticios y solo sirven para probar el recorrido de compra."}
           </p>
           {cartStep === "success" ? (
             <div className={styles.demoSuccess} role="status">
@@ -618,13 +873,18 @@ export default function ProductsPage() {
                 <span>
                   {cartCount} {cartCount === 1 ? "producto" : "productos"}
                 </span>
-                <span>Valores de demostración</span>
+                <span>
+                  {isStore ? "Precios en CLP" : "Valores de demostración"}
+                </span>
               </div>
               <ul className={styles.cartList}>
                 {cartLines.map((line) => (
                   <li key={line.key}>
                     <div className={styles.cartThumbnail}>
-                      <ProductArtwork product={line.product} />
+                      <ProductArtwork
+                        product={line.product}
+                        image={imageFor(line.product, line.variant)}
+                      />
                     </div>
                     <div className={styles.cartLineInfo}>
                       <strong>{line.product.name}</strong>
@@ -648,6 +908,7 @@ export default function ProductsPage() {
                         <button
                           type="button"
                           aria-label={`Aumentar ${line.product.name}`}
+                          disabled={line.quantity >= quantityLimit}
                           onClick={() =>
                             changeQuantity(line.key, line.quantity + 1)
                           }
@@ -669,18 +930,27 @@ export default function ProductsPage() {
               </ul>
               <div className={styles.cartTotal}>
                 <div>
-                  <span>Subtotal demo</span>
+                  <span>{isStore ? "Subtotal" : "Subtotal demo"}</span>
                   <strong>{formatDemoPrice(cartTotal)}</strong>
                 </div>
-                <small>Despacho no incluido · No hay cobro real</small>
+                <small>
+                  {isStore
+                    ? "Despacho calculado en el pago · Tienda en modo de prueba"
+                    : "Despacho no incluido · No hay cobro real"}
+                </small>
               </div>
               <button
                 type="button"
                 className={styles.checkoutButton}
                 onClick={startCheckout}
+                disabled={paying}
               >
-                Continuar con compra de prueba
-                <span aria-hidden="true">→</span>
+                {isStore
+                  ? paying
+                    ? "Preparando el pago…"
+                    : "Ir al pago seguro"
+                  : "Continuar con compra de prueba"}
+                <span aria-hidden="true">{isStore ? "↗" : "→"}</span>
               </button>
               <button
                 type="button"
@@ -703,8 +973,9 @@ export default function ProductsPage() {
             </div>
           )}
           <p className={styles.drawerLegal}>
-            Simulación únicamente visual y local. No conecta con Shopify,
-            Medusa, pasarelas de pago, despacho ni crea pedidos reales.
+            {isStore
+              ? "Tienda de prueba conectada a Shopify. El pago, el despacho y la confirmación del pedido se realizan en Shopify."
+              : "Simulación únicamente visual y local. No conecta con Shopify, Medusa, pasarelas de pago, despacho ni crea pedidos reales."}
           </p>
         </section>
       </aside>
@@ -715,7 +986,12 @@ export default function ProductsPage() {
           aria-hidden="true"
         >
           <span className={styles.addedToastThumb}>
-            {addedToast.product.media ? (
+            {imageFor(addedToast.product) ? (
+              <ProductArtwork
+                product={addedToast.product}
+                image={imageFor(addedToast.product)}
+              />
+            ) : addedToast.product.media ? (
               <HomePhoto
                 id={addedToast.product.media}
                 className={styles.addedToastPhoto}
@@ -750,7 +1026,7 @@ export default function ProductsPage() {
             setIsSelectionOpen(true)
           }}
         >
-          <span>Mi carrito demo</span>
+          <span>{isStore ? "Mi carrito" : "Mi carrito demo"}</span>
           <b>{cartCount}</b>
         </button>
       </div>

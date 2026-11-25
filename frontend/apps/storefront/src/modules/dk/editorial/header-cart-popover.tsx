@@ -13,6 +13,10 @@ import {
   getDemoCartLines,
   readDemoCart,
 } from "../../../lib/util/demo-cart"
+import {
+  readTiendaSummary,
+  TIENDA_SUMMARY_STORAGE_KEY,
+} from "../../../lib/util/tienda-cart"
 
 export default function HeaderCartPopover({
   summary,
@@ -39,6 +43,27 @@ export default function HeaderCartPopover({
     if (summary.status !== "preview") return
     function syncDemoCart() {
       try {
+        // Modo tienda: /productos guarda un resumen del carrito de Shopify.
+        const tienda = readTiendaSummary(
+          window.localStorage.getItem(TIENDA_SUMMARY_STORAGE_KEY),
+        )
+        if (tienda) {
+          const count = tienda.reduce((sum, item) => sum + item.quantity, 0)
+          const subtotal = tienda.reduce((sum, item) => sum + item.total, 0)
+          setDemoSummary({
+            status: "preview",
+            count,
+            items: tienda.map((item) => ({
+              id: item.id,
+              title: item.title,
+              quantity: item.quantity,
+              price: formatDemoPrice(item.total),
+            })),
+            subtotal: count ? formatDemoPrice(subtotal) : null,
+            cartHref: count ? "/productos#catalogo" : null,
+          })
+          return
+        }
         const entries = readDemoCart(
           window.localStorage.getItem(DEMO_CART_STORAGE_KEY),
           productCatalog,
