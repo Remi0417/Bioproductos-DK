@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
-import os 
+import os
 from pathlib import Path
 
+import dj_database_url  # lee la base de datos desde DATABASE_URL (Render)
 from dotenv import load_dotenv #esto importa para leer el archivo env.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +29,22 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+def _lista(variable, por_defecto=''):
+    """Lee una variable de entorno separada por comas y devuelve una lista sin vacíos."""
+    return [valor.strip() for valor in os.environ.get(variable, por_defecto).split(',') if valor.strip()]
+
+
+# Dominios desde los que se puede abrir Django.
+# En local: localhost. En Render: el dominio que Render le asigna al servicio.
+ALLOWED_HOSTS = _lista('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')  # lo define Render solo
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Necesario para iniciar sesión en /admin cuando el sitio usa https (Render).
+CSRF_TRUSTED_ORIGINS = _lista('DJANGO_CSRF_TRUSTED_ORIGINS')
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
 
 
 # Application definition
@@ -50,6 +66,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # sirve los archivos estáticos (CSS del admin) en producción
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware', #agregado cors justo por encima de commonmiddleware.
     'django.middleware.common.CommonMiddleware',
@@ -82,16 +99,27 @@ WSGI_APPLICATION = 'biobackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+if os.environ.get('DATABASE_URL'):
+    # Render entrega la conexión completa en una sola variable: DATABASE_URL.
+    DATABASES = {
+        'default': dj_database_url.parse(
+            os.environ['DATABASE_URL'],
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
     }
-}
+else:
+    # Local: los datos de PostgreSQL vienen del .env, igual que antes.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['DB_NAME'],
+            'USER': os.environ['DB_USER'],
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
 
 
 # Password validation
@@ -129,6 +157,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # aquí deja collectstatic los archivos en producción
+
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    # WhiteNoise comprime los archivos estáticos y les pone un nombre con versión.
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+}
+
+# Producción (DEBUG=False): Render atiende https y le avisa a Django por esta cabecera.
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True  # si alguien entra por http, lo manda a https
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # Email
@@ -141,7 +183,7 @@ MAILERS = {
 }
 
 #CORS que frontends pueden llamar a esta API
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS','http://localhost:8000,http://127.0.0.1:8000').split(',')
+CORS_ALLOWED_ORIGINS = _lista('CORS_ALLOWED_ORIGINS', 'http://localhost:8000,http://127.0.0.1:8000')
 #permite solo el frontend de Byron, que corre en el puerto 8000. Cualquier otro sitio queda bloqueado.
 
 #Django Rest Framework
@@ -149,7 +191,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'contacto': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'colaboraciones': '5/minute', #Maximo 5 consultas por minuto (antispam)
-        'empresas': '5/minute', #Maximo 5 minutos como limite.
+        'empresas': '5/minute', #Maximo 5 consultas por minuto (antispam)
         'checkout': '10/minute', #Maximo 10 pedidos por minuto.
         'carrito': '30/minute', #Consultas del estado del carrito (al volver de Shopify).
     },
