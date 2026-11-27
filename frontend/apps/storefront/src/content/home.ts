@@ -172,12 +172,12 @@ export const homeContent: HomeContent = {
         action: { label: "Descubrir detergentes", href: "/productos" },
       },
       {
-        id: "soap",
-        title: "Jabones",
-        category: "Cuidado personal",
-        body: "Cuidado e higiene para tu día a día.",
-        // Sin foto propia todavía: se muestra la tarjeta "Fotografía por incorporar".
-        action: { label: "Descubrir jabones", href: "/productos" },
+        id: "gift-pack",
+        title: "Pack de regalo",
+        category: "Regalos",
+        body: "Detergentes y champú sólido en una caja lista para regalar.",
+        media: "home-products-gift",
+        action: { label: "Descubrir el pack", href: "/productos" },
       },
       {
         id: "conditioner",

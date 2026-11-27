@@ -248,8 +248,8 @@ test("Nosotras is an independent page grounded in the owner-provided founder pho
   assert.match(page, /href="\/productos"/);
 });
 
-test("Home only uses the six owner photographs and exposes no synthetic commerce data", () => {
-  assert.equal(Object.keys(homeMedia).length, 6);
+test("Home only uses the seven owner photographs and exposes no synthetic commerce data", () => {
+  assert.equal(Object.keys(homeMedia).length, 7);
   const originals = readdirSync("apps/storefront/public/images/home");
   for (const photo of Object.values(homeMedia)) {
     assert.ok(
@@ -272,7 +272,7 @@ test("Home only uses the six owner photographs and exposes no synthetic commerce
       "Champús sólidos",
       "Sales de baño",
       "Detergente aroma eucaliptus",
-      "Jabones",
+      "Pack de regalo",
       "Acondicionador",
     ],
   );
@@ -284,9 +284,9 @@ test("Home only uses the six owner photographs and exposes no synthetic commerce
     homeContent.products.families
       .filter((family) => !family.media)
       .map((family) => family.id),
-    // Sin foto propia todavía: muestran "Fotografía por incorporar" en vez de
-    // una foto de otro producto.
-    ["soap", "conditioner"],
+    // Acondicionador sin foto propia todavía: muestra "Fotografía por
+    // incorporar" en vez de una foto de otro producto.
+    ["conditioner"],
   );
   assert.equal(homeContent.process.steps.length, 5);
   assert.equal(homeContent.businessPaths.length, 3);
@@ -302,7 +302,7 @@ test("all responsive assets decode as WebP, have the advertised widths, strip EX
     readFileSync("evidence/home-photos-assets.json", "utf8"),
   );
   const dir = "apps/storefront/public/images/home";
-  assert.equal(report.length, 6);
+  assert.equal(report.length, 7);
   for (const photo of Object.values(homeMedia)) {
     const entry = report.find(
       (x) => x.original.normalize("NFC") === photo.original,

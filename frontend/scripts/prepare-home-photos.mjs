@@ -14,12 +14,27 @@ const selections = [
   ["sales de bañoo.JPG", "sales", [480, 960, 1600]],
   ["detergente.JPG", "botellas", [480, 960, 1600]],
   ["Dueñas dk.JPG", "fundadoras", [480, 960, 1440]],
+  ["pack de regalo.JPG", "pack-regalo", [480, 960, 1600]],
 ];
+// ONLY=pack-regalo procesa solo esas fotos y conserva el resto del reporte
+// (útil porque las fotos HEIC necesitan una herramienta que no siempre está).
+const only = process.env.ONLY?.split(",").filter(Boolean);
 const originals = await readdir(directory);
 const output = `${directory}/optimized`;
 await mkdir(output, { recursive: true });
+const previous = only
+  ? JSON.parse(await readFile("evidence/home-photos-assets.json", "utf8"))
+  : [];
 const report = [];
 for (const [expected, slug, widths] of selections) {
+  if (only && !only.includes(slug)) {
+    const kept = previous.find(
+      (photo) => photo.original.normalize("NFC") === expected,
+    );
+    if (!kept) throw new Error(`Falta en el reporte anterior: ${expected}`);
+    report.push(kept);
+    continue;
+  }
   const filename = originals.find((name) => name.normalize("NFC") === expected);
   if (!filename) throw new Error(`No se encontró el original: ${expected}`);
   const original = await readFile(`${directory}/${filename}`);
@@ -71,5 +86,5 @@ await writeFile(
   JSON.stringify(report, null, 2) + "\n",
 );
 console.log(
-  `Preparadas ${report.reduce((n, photo) => n + photo.variants.length, 0)} variantes WebP; seis originales intactos. Sin EXIF/GPS en los derivados.`,
+  `Preparadas ${report.reduce((n, photo) => n + photo.variants.length, 0)} variantes WebP; ${report.length} originales intactos. Sin EXIF/GPS en los derivados.`,
 );

@@ -56,6 +56,15 @@ export const homeMedia = {
     alt: "Botellas de detergente DK ordenadas en una repisa, con etiquetas visibles de aroma eucaliptus.",
     position: "50% 50%",
   },
+  "home-products-gift": {
+    original: "pack de regalo.JPG",
+    slug: "pack-regalo",
+    widths: [480, 960, 1600],
+    width: 3456,
+    height: 5184,
+    alt: "Pack de regalo de DK: caja con dos detergentes líquidos concentrados, latas de champú sólido BIO-Renua y flores, sobre un fondo claro.",
+    position: "50% 55%",
+  },
   "home-founders": {
     original: "Dueñas dk.JPG",
     slug: "fundadoras",

@@ -154,5 +154,31 @@
         "bytes": 613452
       }
     ]
+  },
+  {
+    "original": "pack de regalo.JPG",
+    "sha256": "658db97dfdf25b09cec4e82b00bdb83f8960525ca386bebfb5bfd258f7b6f475",
+    "bytes": 2626576,
+    "format": "JPEG",
+    "variants": [
+      {
+        "file": "pack-regalo-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 37868
+      },
+      {
+        "file": "pack-regalo-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 108202
+      },
+      {
+        "file": "pack-regalo-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 217240
+      }
+    ]
   }
 ]

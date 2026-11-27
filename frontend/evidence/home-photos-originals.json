@@ -40,5 +40,12 @@
     "sha256": "fc2f2fe63c5a24ac43586c08f0f9b7bbd417a6c67970c4372ef03c7ddcfe3213",
     "heic": true,
     "slug": "sales-de-banoo"
+  },
+  {
+    "original": "pack de regalo.JPG",
+    "bytes": 2626576,
+    "sha256": "658db97dfdf25b09cec4e82b00bdb83f8960525ca386bebfb5bfd258f7b6f475",
+    "heic": false,
+    "slug": "pack-de-regalo"
   }
 ]
