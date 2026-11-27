@@ -273,20 +273,18 @@ test("Home only uses the seven owner photographs and exposes no synthetic commer
       "Sales de baño",
       "Detergente aroma eucaliptus",
       "Pack de regalo",
-      "Acondicionador",
     ],
   );
   assert.equal(
     new Set(homeContent.products.families.map((family) => family.id)).size,
-    6,
+    5,
   );
+  // Todas las tarjetas de la colección usan una foto propia del producto.
   assert.deepEqual(
     homeContent.products.families
       .filter((family) => !family.media)
       .map((family) => family.id),
-    // Acondicionador sin foto propia todavía: muestra "Fotografía por
-    // incorporar" en vez de una foto de otro producto.
-    ["conditioner"],
+    [],
   );
   assert.equal(homeContent.process.steps.length, 5);
   assert.equal(homeContent.businessPaths.length, 3);

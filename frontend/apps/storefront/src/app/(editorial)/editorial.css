@@ -3315,6 +3315,23 @@ html[data-theme="dark"] .dk2-site .dk3-donation-button {
   .dk2-family {
     grid-column: span 2;
   }
+  /* Si la última fila tiene 2 tarjetas (p. ej. 5 en total), se centran. */
+  .dk2-family:nth-child(3n + 1):nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  /* Dos por fila; si queda una tarjeta sola al final, se centra.
+     (.dk2-site da prioridad sobre la regla de max-width: 1099px de más abajo) */
+  .dk2-site .dk2-product-families {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .dk2-site .dk2-family {
+    grid-column: span 2;
+  }
+  .dk2-site .dk2-family:last-child:nth-child(odd) {
+    grid-column: 2 / span 2;
+  }
 }
 .dk2-family-link {
   display: flex;

@@ -179,14 +179,7 @@ export const homeContent: HomeContent = {
         media: "home-products-gift",
         action: { label: "Descubrir el pack", href: "/productos" },
       },
-      {
-        id: "conditioner",
-        title: "Acondicionador",
-        category: "Cuidado personal",
-        body: "Un complemento para tu rutina capilar.",
-        // Sin foto propia todavía: se muestra la tarjeta "Fotografía por incorporar".
-        action: { label: "Descubrir acondicionador", href: "/productos" },
-      },
+      // Acondicionador: se agrega de vuelta cuando haya una foto propia.
     ],
   },
   process: {
