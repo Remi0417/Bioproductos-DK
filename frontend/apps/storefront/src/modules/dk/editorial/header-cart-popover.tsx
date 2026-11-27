@@ -28,6 +28,10 @@ export default function HeaderCartPopover({
   const [enhanced, setEnhanced] = useState(false)
   const [open, setOpen] = useState(false)
   const [demoSummary, setDemoSummary] = useState(summary)
+  // Origen del resumen: carrito de Shopify (tienda), simulación local con
+  // productos (demo) o sin productos todavía (vacio).
+  const [origen, setOrigen] = useState<"tienda" | "demo" | "vacio">("vacio")
+  const isDemo = origen === "demo"
   const titleId = useId()
   const pathname = usePathname()
   const displayedSummary = summary.status === "preview" ? demoSummary : summary
@@ -48,6 +52,7 @@ export default function HeaderCartPopover({
           window.localStorage.getItem(TIENDA_SUMMARY_STORAGE_KEY),
         )
         if (tienda) {
+          setOrigen("tienda")
           const count = tienda.reduce((sum, item) => sum + item.quantity, 0)
           const subtotal = tienda.reduce((sum, item) => sum + item.total, 0)
           setDemoSummary({
@@ -71,6 +76,7 @@ export default function HeaderCartPopover({
         const lines = getDemoCartLines(entries, productCatalog)
         const count = lines.reduce((total, line) => total + line.quantity, 0)
         const subtotal = lines.reduce((total, line) => total + line.total, 0)
+        setOrigen(count ? "demo" : "vacio")
         setDemoSummary({
           status: "preview",
           count,
@@ -154,9 +160,11 @@ export default function HeaderCartPopover({
         <div className="dk2-cart-heading">
           <div>
             <p className="dk2-cart-eyebrow">
-              {displayedSummary.status === "preview"
-                ? "Simulación local"
-                : "Tu selección"}
+              {displayedSummary.status !== "preview"
+                ? "Tu selección"
+                : isDemo
+                  ? "Simulación local"
+                  : "BioProductos DK · Tienda"}
             </p>
             <h2 id={titleId}>Tu carrito</h2>
           </div>
@@ -213,15 +221,19 @@ export default function HeaderCartPopover({
             </span>
             <p className="dk2-cart-message">Tu carrito está esperando ideas.</p>
             <p>
-              {displayedSummary.status === "preview"
-                ? "Agrega productos para probar el carrito y completar una compra demostrativa."
-                : "Todavía no has agregado productos. Encuentra tu próxima elección."}
+              {displayedSummary.status !== "preview"
+                ? "Todavía no has agregado productos. Encuentra tu próxima elección."
+                : isDemo
+                  ? "Agrega productos para probar el carrito y completar una compra demostrativa."
+                  : "Agrega productos y completa tu compra en el checkout seguro de Shopify."}
             </p>
           </div>
         )}
         {displayedSummary.status === "preview" && (
           <p className="dk2-cart-note">
-            Precios ficticios · Sin pagos ni pedidos reales
+            {isDemo
+              ? "Precios ficticios · Sin pagos ni pedidos reales"
+              : "Precios en CLP desde Shopify · Tienda en modo de prueba"}
           </p>
         )}
         <Link
@@ -244,7 +256,9 @@ export default function HeaderCartPopover({
           }}
         >
           {displayedSummary.items.length && displayedSummary.cartHref
-            ? "Ver carrito de demostración"
+            ? isDemo
+              ? "Ver carrito de demostración"
+              : "Ver carrito"
             : "Descubrir productos"}
           <span aria-hidden="true">↗</span>
         </Link>
