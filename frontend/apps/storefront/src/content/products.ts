@@ -12,6 +12,8 @@ export type CatalogProduct = {
   variants?: readonly string[]
   variantNote?: string
   accent: "citrus" | "eucalyptus" | "hair" | "bath" | "soap" | "conditioner"
+  // Sin stock en Shopify: se muestra, pero no se puede agregar al carrito.
+  comingSoon?: boolean
 }
 
 // Catálogo editorial basado en la entrevista y las familias ya documentadas.

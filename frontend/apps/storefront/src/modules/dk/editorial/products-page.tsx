@@ -92,12 +92,17 @@ function catalogFromShopify(items: TiendaProducto[]): StoreCatalog {
   const variantIds: Record<string, string> = {}
 
   for (const item of items) {
-    const available = item.variantes.filter((variante) => variante.disponible)
-    if (!item.disponible || !available.length) continue
+    const available = item.disponible
+      ? item.variantes.filter((variante) => variante.disponible)
+      : []
+    // Sin stock en Shopify (inventario en 0): se muestra como "Próximamente"
+    // y no se puede agregar al carrito.
+    const comingSoon = available.length === 0
+    if (comingSoon && !item.variantes.length) continue
     // Shopify llama "Default Title" a la única variante de un producto sin opciones.
-    const hasOptions = !(
-      available.length === 1 && available[0].titulo === "Default Title"
-    )
+    const hasOptions =
+      !comingSoon &&
+      !(available.length === 1 && available[0].titulo === "Default Title")
     const description = item.descripcion.trim()
     products.push({
       id: item.handle,
@@ -109,9 +114,12 @@ function catalogFromShopify(items: TiendaProducto[]): StoreCatalog {
         ? available.map((variante) => variante.titulo)
         : undefined,
       accent: accentFor(item.handle),
+      comingSoon: comingSoon || undefined,
     })
     prices[item.handle] = Math.min(
-      ...available.map((variante) => variante.precio),
+      ...(comingSoon ? item.variantes : available).map(
+        (variante) => variante.precio,
+      ),
     )
     images[item.handle] = item.imagen
     for (const variante of available) {
@@ -123,6 +131,8 @@ function catalogFromShopify(items: TiendaProducto[]): StoreCatalog {
       variantImages[key] = variante.imagen
     }
   }
+  // Los "Próximamente" van al final de la lista.
+  products.sort((a, b) => Number(!!a.comingSoon) - Number(!!b.comingSoon))
   return { products, prices, images, variantImages, variantIds }
 }
 
@@ -227,6 +237,20 @@ export default function ProductsPage() {
       active = false
     }
   }, [])
+
+  // Productos con variedades (sales, shampoo): la primera opción viene
+  // elegida, así "Agregar al carrito" queda habilitado desde el inicio.
+  useEffect(() => {
+    setVariants((current) => {
+      const next = { ...current }
+      for (const product of store.products) {
+        const first = product.variants?.[0]
+        if (first && !product.variants?.includes(next[product.id] ?? ""))
+          next[product.id] = first
+      }
+      return next
+    })
+  }, [store])
 
   // 4. Al volver desde Shopify: el vigilante (tienda-order-watcher, presente en
   //    todas las páginas) avisa cuando la compra se completó; aquí vaciamos el
@@ -378,6 +402,7 @@ export default function ProductsPage() {
   function addToSelection(product: CatalogProduct) {
     const variant = variants[product.id]
     const quantity = quantities[product.id] ?? 1
+    if (product.comingSoon) return
     if (product.variants && !variant) {
       setNotice(`Elige una opción para ${product.name} antes de agregarlo.`)
       return
@@ -690,77 +715,94 @@ export default function ProductsPage() {
                       )}
                     </fieldset>
                   )}
-                  <div
-                    className={styles.productQuantity}
-                    role="group"
-                    aria-label={`Cantidad de ${product.name}`}
-                  >
-                    <span>Cantidad</span>
-                    <div className={styles.quantityStepper}>
+                  {product.comingSoon ? (
+                    <>
                       <button
+                        className={styles.addButton}
                         type="button"
-                        aria-label={`Disminuir cantidad de ${product.name}`}
-                        disabled={(quantities[product.id] ?? 1) <= 1}
-                        onClick={() =>
-                          setQuantities((current) => ({
-                            ...current,
-                            [product.id]: Math.max(
-                              1,
-                              (current[product.id] ?? 1) - 1,
-                            ),
-                          }))
-                        }
+                        disabled
                       >
-                        <span aria-hidden="true">−</span>
+                        Próximamente
                       </button>
-                      <output aria-label={`Unidades de ${product.name}`}>
-                        {quantities[product.id] ?? 1}
-                      </output>
+                      <small className={styles.variantHint}>
+                        Aún no está disponible para la venta.
+                      </small>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className={styles.productQuantity}
+                        role="group"
+                        aria-label={`Cantidad de ${product.name}`}
+                      >
+                        <span>Cantidad</span>
+                        <div className={styles.quantityStepper}>
+                          <button
+                            type="button"
+                            aria-label={`Disminuir cantidad de ${product.name}`}
+                            disabled={(quantities[product.id] ?? 1) <= 1}
+                            onClick={() =>
+                              setQuantities((current) => ({
+                                ...current,
+                                [product.id]: Math.max(
+                                  1,
+                                  (current[product.id] ?? 1) - 1,
+                                ),
+                              }))
+                            }
+                          >
+                            <span aria-hidden="true">−</span>
+                          </button>
+                          <output aria-label={`Unidades de ${product.name}`}>
+                            {quantities[product.id] ?? 1}
+                          </output>
+                          <button
+                            type="button"
+                            aria-label={`Aumentar cantidad de ${product.name}`}
+                            disabled={
+                              (quantities[product.id] ?? 1) >= quantityLimit
+                            }
+                            onClick={() =>
+                              setQuantities((current) => ({
+                                ...current,
+                                [product.id]: Math.min(
+                                  quantityLimit,
+                                  (current[product.id] ?? 1) + 1,
+                                ),
+                              }))
+                            }
+                          >
+                            <span aria-hidden="true">+</span>
+                          </button>
+                        </div>
+                      </div>
                       <button
+                        className={`${styles.addButton} ${addedProduct?.id === product.id ? styles.addButtonSuccess : ""}`}
                         type="button"
-                        aria-label={`Aumentar cantidad de ${product.name}`}
-                        disabled={
-                          (quantities[product.id] ?? 1) >= quantityLimit
-                        }
-                        onClick={() =>
-                          setQuantities((current) => ({
-                            ...current,
-                            [product.id]: Math.min(
-                              quantityLimit,
-                              (current[product.id] ?? 1) + 1,
-                            ),
-                          }))
-                        }
+                        onClick={() => addToSelection(product)}
+                        disabled={Boolean(
+                          product.variants && !variants[product.id],
+                        )}
                       >
-                        <span aria-hidden="true">+</span>
+                        Agregar al carrito
+                        <span aria-hidden="true">
+                          <ShoppingCart
+                            key={
+                              addedProduct?.id === product.id
+                                ? addedProduct.sequence
+                                : "idle"
+                            }
+                            width={17}
+                            height={17}
+                          />
+                        </span>
                       </button>
-                    </div>
-                  </div>
-                  <button
-                    className={`${styles.addButton} ${addedProduct?.id === product.id ? styles.addButtonSuccess : ""}`}
-                    type="button"
-                    onClick={() => addToSelection(product)}
-                    disabled={Boolean(
-                      product.variants && !variants[product.id],
-                    )}
-                  >
-                    Agregar al carrito
-                    <span aria-hidden="true">
-                      <ShoppingCart
-                        key={
-                          addedProduct?.id === product.id
-                            ? addedProduct.sequence
-                            : "idle"
-                        }
-                        width={17}
-                        height={17}
-                      />
-                    </span>
-                  </button>
-                  {product.variants && !variants[product.id] && (
-                    <small className={styles.variantHint}>
-                      Elige una opción para continuar.
-                    </small>
+                      {product.variants && !variants[product.id] && (
+                        <small className={styles.variantHint}>
+                          Elige una opción para continuar.
+                        </small>
+                      )}
+                    </>
                   )}
                 </div>
               </article>
