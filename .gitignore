@@ -235,3 +235,6 @@ shopify/imagenes/
 
 # Archivos estáticos generados por collectstatic
 staticfiles/
+
+# Documentos del informe (no se suben al repositorio)
+documentos (no al git)/
