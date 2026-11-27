@@ -85,14 +85,14 @@ flowchart LR
 | Playwright + axe | Pruebas de extremo a extremo y accesibilidad (`npm run test:e2e`) |
 | ESLint + Prettier | Calidad y formato del código |
 
-### Asistente de inteligencia artificial
-El proyecto se desarrolló con apoyo de **[Claude Code](https://claude.com/claude-code)**, el asistente de programación de **Anthropic**, usando el modelo **Claude Opus 5.5**.
+### Uso de herramientas de IA
+El proyecto incorporó Claude Code (Anthropic) como asistente de desarrollo para agilizar iteraciones y revisiones técnicas, manteniendo la arquitectura, implementación y validación bajo responsabilidad del equipo
 
-- **Backend:** el equipo lo escribió paso a paso, y Claude Code revisó cada etapa y ayudó a corregir errores.
-- **Frontend:** Claude Code adaptó el diseño de Byron y lo conectó a la API.
-- **Despliegue y Shopify:** Claude Code preparó la configuración de Render y guió la configuración de Shopify.
+- **Backend:** Desarrollado paso a paso por el equipo, utilizando el asistente para revisión de código y apoyo en la depuración de errores.
+- **Frontend:** El equipo implementó la interfaz a partir del diseño de Byron y gestionó la conexión con la API, apoyándose en el asistente para acelerar ajustes y refactorizaciones.
+- **Despliegue y Shopify:** La configuración en Render y la integración con Shopify fueron ejecutadas por el equipo, usando el asistente como referencia técnica para la configuración.
 - **Pruebas:** después de cada cambio, Claude Code corrió las pruebas y revisó el resultado en el navegador.
-- **Decisiones y commits:** el equipo revisó cada cambio, tomó las decisiones del proyecto e hizo todos los commits.
+- **Decisiones y commits:** Cada iteración fue probada localmente y validada en navegador antes de integrar cambios. Todas las decisiones técnicas, revisiones de código y commits fueron realizados por el equipo.
 
 ## Estructura del repositorio
 
