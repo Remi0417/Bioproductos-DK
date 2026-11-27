@@ -284,7 +284,9 @@ test("Home only uses the six owner photographs and exposes no synthetic commerce
     homeContent.products.families
       .filter((family) => !family.media)
       .map((family) => family.id),
-    [],
+    // Sin foto propia todavía: muestran "Fotografía por incorporar" en vez de
+    // una foto de otro producto.
+    ["soap", "conditioner"],
   );
   assert.equal(homeContent.process.steps.length, 5);
   assert.equal(homeContent.businessPaths.length, 3);

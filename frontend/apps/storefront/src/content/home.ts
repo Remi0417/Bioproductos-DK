@@ -176,8 +176,7 @@ export const homeContent: HomeContent = {
         title: "Jabones",
         category: "Cuidado personal",
         body: "Cuidado e higiene para tu día a día.",
-        media: "home-products-bath",
-        mediaNote: "Imagen de referencia",
+        // Sin foto propia todavía: se muestra la tarjeta "Fotografía por incorporar".
         action: { label: "Descubrir jabones", href: "/productos" },
       },
       {
@@ -185,8 +184,7 @@ export const homeContent: HomeContent = {
         title: "Acondicionador",
         category: "Cuidado personal",
         body: "Un complemento para tu rutina capilar.",
-        media: "home-products-shampoo",
-        mediaNote: "Imagen de referencia",
+        // Sin foto propia todavía: se muestra la tarjeta "Fotografía por incorporar".
         action: { label: "Descubrir acondicionador", href: "/productos" },
       },
     ],
