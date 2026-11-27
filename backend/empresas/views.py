@@ -11,4 +11,4 @@ class SolicitudEmpresaCreateView(generics.CreateAPIView):
     serializer_class = SolicitudEmpresaSerializer
     permission_classes = [permissions.AllowAny]
     throttle_classes = [ScopedRateThrottle]
-    throttle_scape = 'empresas'
+    throttle_scope = 'empresas'
