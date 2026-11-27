@@ -33,7 +33,7 @@ services:
       - key: DJANGO_DEBUG
         value: "False"
       - key: CORS_ALLOWED_ORIGINS
-        value: https://bioproductos-dk-web.onrender.com
+        value: https://bioproductos-dk-web-wccb.onrender.com
       - key: SHOPIFY_STORE_DOMAIN
         value: bioproductos-dk-prototipo.myshopify.com
       - key: SHOPIFY_API_VERSION
@@ -60,7 +60,7 @@ services:
       - key: DK_DEMO_PREVIEW
         value: "true"
       - key: NEXT_PUBLIC_BASE_URL
-        value: https://bioproductos-dk-web.onrender.com
+        value: https://bioproductos-dk-web-wccb.onrender.com
       - key: NEXT_PUBLIC_API_URL
         value: https://bioproductos-dk-api.onrender.com
       - key: NEXT_PUBLIC_DEFAULT_REGION
