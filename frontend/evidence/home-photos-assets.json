@@ -183,27 +183,27 @@
   },
   {
     "original": "fundadoras pendones.JPG",
-    "sha256": "376c25b4425a69db9aafe93b6a9b5a48c81c574aaf1659d41b0e62ef53bceed2",
-    "bytes": 3630517,
+    "sha256": "057abbb2679577ccecaff48465b2bd0f9c70a85d3f306c13c9d6b40a5ad89c74",
+    "bytes": 3468404,
     "format": "JPEG",
     "variants": [
       {
         "file": "fundadoras-pendones-640.webp",
         "width": 640,
         "height": 427,
-        "bytes": 59438
+        "bytes": 57488
       },
       {
         "file": "fundadoras-pendones-1280.webp",
         "width": 1280,
         "height": 853,
-        "bytes": 172104
+        "bytes": 164644
       },
       {
         "file": "fundadoras-pendones-2240.webp",
         "width": 2240,
         "height": 1493,
-        "bytes": 392256
+        "bytes": 370826
       }
     ]
   }
