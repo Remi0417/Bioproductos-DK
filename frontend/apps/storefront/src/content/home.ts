@@ -93,7 +93,7 @@ export const homeContent: HomeContent = {
         title: "Mirar el origen.",
         accent: "Imaginar más.",
         body: "Somos un equipo que investiga nuevas utilidades para materiales orgánicos.",
-        media: "home-founders",
+        media: "home-founders-wide",
         photoLabel: "Las fundadoras de BioProductos DK",
         action: { label: "Conoce Bio Impacto", href: "/bio-impacto" },
         secondaryAction: { label: "Conócenos", href: "/nosotras" },

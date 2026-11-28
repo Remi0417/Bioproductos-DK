@@ -47,5 +47,12 @@
     "sha256": "658db97dfdf25b09cec4e82b00bdb83f8960525ca386bebfb5bfd258f7b6f475",
     "heic": false,
     "slug": "pack-de-regalo"
+  },
+  {
+    "original": "fundadoras pendones.JPG",
+    "bytes": 3630517,
+    "sha256": "376c25b4425a69db9aafe93b6a9b5a48c81c574aaf1659d41b0e62ef53bceed2",
+    "heic": false,
+    "slug": "fundadoras-pendones"
   }
 ]

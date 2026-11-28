@@ -74,6 +74,16 @@ export const homeMedia = {
     alt: "Las dos fundadoras de BioProductos DK sonríen con chaquetas verdes frente a los pendones de la marca.",
     position: "50% 63%",
   },
+  // Foto horizontal para el carrusel del inicio (se ve completa en el marco).
+  "home-founders-wide": {
+    original: "fundadoras pendones.JPG",
+    slug: "fundadoras-pendones",
+    widths: [640, 1280, 2240],
+    width: 5184,
+    height: 3456,
+    alt: "Las dos fundadoras de BioProductos DK sonríen abrazadas, con chaquetas verdes, frente a los pendones de la marca.",
+    position: "50% 50%",
+  },
 } as const satisfies Record<string, MediaDefinition>
 
 export type HomeMediaId = keyof typeof homeMedia

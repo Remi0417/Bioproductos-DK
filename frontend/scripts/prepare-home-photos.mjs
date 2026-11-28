@@ -15,6 +15,7 @@ const selections = [
   ["detergente.JPG", "botellas", [480, 960, 1600]],
   ["Dueñas dk.JPG", "fundadoras", [480, 960, 1440]],
   ["pack de regalo.JPG", "pack-regalo", [480, 960, 1600]],
+  ["fundadoras pendones.JPG", "fundadoras-pendones", [640, 1280, 2240]],
 ];
 // ONLY=pack-regalo procesa solo esas fotos y conserva el resto del reporte
 // (útil porque las fotos HEIC necesitan una herramienta que no siempre está).
