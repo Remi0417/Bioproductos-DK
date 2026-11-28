@@ -626,16 +626,17 @@
 .workPhotoFrame {
   position: relative;
   overflow: hidden;
-  border-radius: 16px 110px 16px 16px;
+  border-radius: 16px 56px 16px 16px;
   background: #e8eddf;
   box-shadow: 0 20px 52px rgb(38 60 39 / 12%);
 }
 .workPhoto {
   display: block;
   width: 100%;
-  aspect-ratio: 1.15 / 1;
+  /* Mismo formato que la foto original (4000 × 1848): se ve completa. */
+  aspect-ratio: 4000 / 1848;
   object-fit: cover;
-  object-position: 58% 50%;
+  object-position: 50% 50%;
   transition: transform 500ms cubic-bezier(0.2, 0.7, 0.25, 1);
 }
 .workPhotoFrame:hover .workPhoto {
@@ -1093,10 +1094,7 @@
     padding-bottom: 24px;
   }
   .workPhotoFrame {
-    border-top-right-radius: 80px;
-  }
-  .workPhoto {
-    aspect-ratio: 1.08 / 1;
+    border-top-right-radius: 40px;
   }
   .workStamp {
     width: 105px;

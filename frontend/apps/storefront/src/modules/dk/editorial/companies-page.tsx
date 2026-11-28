@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { publicContact } from "../../../content/site"
-import { HomePhoto } from "./primitives"
+import { HomePhoto, homePhotoBackdrop } from "./primitives"
 import CompanyForm from "./company-form"
 import styles from "./companies-page.module.css"
 
@@ -116,7 +116,10 @@ export default function CompaniesPage() {
           </div>
 
           <div className={styles.heroVisual}>
-            <div className={styles.photoFrame}>
+            <div
+              className={`${styles.photoFrame} dk2-photo-fit`}
+              style={homePhotoBackdrop("home-business")}
+            >
               <HomePhoto
                 id="home-business"
                 className={styles.heroPhoto}

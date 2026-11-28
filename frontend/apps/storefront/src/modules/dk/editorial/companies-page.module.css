@@ -196,6 +196,7 @@
 }
 .photoFrame::after {
   position: absolute;
+  z-index: 1;
   inset: 56% 0 0;
   background: linear-gradient(0deg, rgb(20 42 29 / 72%), transparent);
   content: "";
@@ -212,7 +213,7 @@
 }
 .photoCaption {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   right: 23px;
   bottom: 22px;
   left: 25px;
@@ -250,6 +251,11 @@
   background: rgb(255 255 252 / 93%);
   box-shadow: 0 12px 30px rgb(38 57 40 / 11%);
   backdrop-filter: blur(12px);
+  /* Texto oscuro fijo: la tarjeta es clara también en modo oscuro. */
+  color: #1f3326;
+}
+.visualTag small {
+  color: #55665a;
 }
 .tagGlyph {
   display: grid;

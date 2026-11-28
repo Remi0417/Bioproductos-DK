@@ -5062,3 +5062,76 @@ html[data-theme="dark"] .dk2-site .dk3-donation-button {
     transform: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Fotos completas, sin recortes ni degradados (revisión docente).
+   El marco muestra la foto entera ("contain") y rellena el espacio
+   sobrante con la misma foto difuminada (--dk2-photo-bg).
+------------------------------------------------------------------- */
+.dk2-photo-fit {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #e8ecdf;
+}
+.dk2-photo-fit::before {
+  position: absolute;
+  z-index: -1;
+  inset: -30px;
+  background: var(--dk2-photo-bg, none) center / cover no-repeat;
+  content: "";
+  filter: blur(26px) saturate(1.1);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.dk2-photo-fit > img {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  object-position: 50% 50% !important;
+}
+html[data-theme="dark"] .dk2-photo-fit {
+  background-color: #233026;
+}
+
+/* Carrusel del inicio: la foto va en un marco a la derecha, sin "wash". */
+.dk2-hero-slide--science .dk2-hero-wash,
+.dk2-hero-slide--purpose .dk2-hero-wash,
+.dk2-hero-slide--products .dk2-hero-wash,
+html[data-theme="dark"] .dk2-hero-slide--science .dk2-hero-wash,
+html[data-theme="dark"] .dk2-hero-slide--purpose .dk2-hero-wash,
+html[data-theme="dark"] .dk2-hero-slide--products .dk2-hero-wash {
+  background: none;
+}
+.dk2-hero-media.dk2-photo-fit {
+  position: absolute;
+  inset: 22px 22px 22px auto;
+  width: 46%;
+  border-radius: 22px;
+}
+.dk2-hero-slide.is-active .dk2-photo-fit > .dk2-hero-photo {
+  animation: none;
+}
+@media (max-width: 699px) {
+  .dk2-hero-media.dk2-photo-fit {
+    inset: auto 12px 12px;
+    width: auto;
+    height: 230px;
+    border-radius: 16px;
+  }
+  .dk2-hero-slide--science .dk2-hero-wash,
+  .dk2-hero-slide--purpose .dk2-hero-wash,
+  .dk2-hero-slide--products .dk2-hero-wash,
+  html[data-theme="dark"] .dk2-hero-slide--science .dk2-hero-wash,
+  html[data-theme="dark"] .dk2-hero-slide--purpose .dk2-hero-wash,
+  html[data-theme="dark"] .dk2-hero-slide--products .dk2-hero-wash {
+    background: none;
+  }
+}
+@media (max-width: 440px) {
+  .dk2-hero-media.dk2-photo-fit {
+    height: 240px;
+  }
+}

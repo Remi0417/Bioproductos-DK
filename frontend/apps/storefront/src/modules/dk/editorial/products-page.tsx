@@ -37,7 +37,7 @@ import {
   TIENDA_ORDER_COMPLETED_EVENT,
   writeTiendaSummary,
 } from "../../../lib/util/tienda-cart"
-import { HomePhoto } from "./primitives"
+import { HomePhoto, photoBackdrop } from "./primitives"
 import styles from "./products-page.module.css"
 
 type Filter = "Todo" | ProductCategory
@@ -657,7 +657,12 @@ export default function ProductsPage() {
                 key={product.id}
                 style={{ "--card-order": index } as CSSProperties}
               >
-                <div className={styles.cardVisual}>
+                <div
+                  className={`${styles.cardVisual} dk2-photo-fit`}
+                  style={photoBackdrop(
+                    imageFor(product, variants[product.id])?.url,
+                  )}
+                >
                   <ProductArtwork
                     product={product}
                     image={imageFor(product, variants[product.id])}

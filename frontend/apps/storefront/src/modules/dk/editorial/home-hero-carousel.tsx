@@ -7,7 +7,7 @@ import type {
   PointerEvent as ReactPointerEvent,
 } from "react"
 import type { HeroSlide } from "../../../content/home"
-import { ActionLink, HomePhoto } from "./primitives"
+import { ActionLink, HomePhoto, homePhotoBackdrop } from "./primitives"
 
 type DragState = {
   pointerId: number
@@ -35,10 +35,10 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const move = useCallback(
     (direction: number) => {
       setActiveIndex(
-        (current) => (current + direction + slides.length) % slides.length
+        (current) => (current + direction + slides.length) % slides.length,
       )
     },
-    [slides.length]
+    [slides.length],
   )
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
       const deltaX = event.clientX - drag.startX
       const threshold = Math.max(
         48,
-        (canvasRef.current?.getBoundingClientRect().width ?? 0) * 0.1
+        (canvasRef.current?.getBoundingClientRect().width ?? 0) * 0.1,
       )
       if (drag.dragging && Math.abs(deltaX) >= threshold) {
         move(deltaX < 0 ? 1 : -1)
@@ -187,7 +187,10 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               aria-hidden={!isActive}
               inert={!isActive}
             >
-              <div className="dk2-hero-media">
+              <div
+                className="dk2-hero-media dk2-photo-fit"
+                style={homePhotoBackdrop(slide.media)}
+              >
                 <HomePhoto
                   id={slide.media}
                   className="dk2-hero-photo"

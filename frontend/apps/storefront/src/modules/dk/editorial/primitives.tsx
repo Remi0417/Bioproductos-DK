@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 import { homeMedia, type HomeMediaId } from "../../../content/media"
 import type { SiteLink } from "../../../content/site"
 
@@ -33,6 +33,21 @@ export function SectionHeading({
       <h2 id={id}>{title}</h2>
       {children}
     </div>
+  )
+}
+
+/**
+ * Fondo desenfocado para marcos con la clase "dk2-photo-fit": la foto se ve
+ * completa (sin recortes) y el espacio sobrante muestra la misma foto difuminada.
+ */
+export function photoBackdrop(url?: string | null): CSSProperties {
+  return url ? ({ "--dk2-photo-bg": `url("${url}")` } as CSSProperties) : {}
+}
+
+export function homePhotoBackdrop(id: HomeMediaId): CSSProperties {
+  const photo = homeMedia[id]
+  return photoBackdrop(
+    `/images/home/optimized/${photo.slug}-${photo.widths[0]}.webp`,
   )
 }
 
